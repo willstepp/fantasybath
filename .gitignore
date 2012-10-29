@@ -14,3 +14,9 @@ capybara-*.html
 **.orig
 rerun.txt
 pickle-email-*.html
+
+# precompiled assets
+/public/system/*
+/public/assets/*
+
+/config/initializers/01_env_vars.rb
