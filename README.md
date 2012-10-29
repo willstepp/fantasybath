@@ -1,2 +1,2 @@
-fantasybath
+fantasybath - a site for baths
 ===========
