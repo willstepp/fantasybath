@@ -1,0 +1,2 @@
+class ScentsController < ApplicationController
+end
