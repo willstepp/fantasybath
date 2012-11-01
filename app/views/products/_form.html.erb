@@ -15,13 +15,15 @@
   <%= p.text_field :name %>
   <br/>
   <%= p.label :description %>
-  <%= p.text_area :description %>
+  <%= p.text_area :description, :class => "description-box" %>
   <br/>
   <%= p.label :size %>
   <%= p.text_field :size %>
   &nbsp;
-  <%= p.label :uom, "Unit of Measure" %>
-  <%= p.text_field :uom %>
+  <%= p.select :uom, [["Ounces", "ounces"], ["Pounds", "pounds"]] %>
+  <br/>
+  <%= p.label :product_type_id, "Product Type" %>
+  <%= p.select :product_type_id, options_from_collection_for_select(@product_types, :id, :name, @product.product_type.nil? ? nil : @product.product_type.id) %>
 
   <div class="actions">
     <%= p.submit %>

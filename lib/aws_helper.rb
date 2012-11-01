@@ -1,5 +1,5 @@
 module AWSHelper
-  def self.upload_to_s3(type, file, path)
+  def self.upload_to_s3(file, path)
     
     #create file
     s3_file = AWS::S3.new(:access_key_id => ENV['S3_ACCESS_KEY'], 
@@ -8,12 +8,7 @@ module AWSHelper
                       .objects[path]
                       
     #write data into it
-    case type
-    when :image
-      s3_file.write(file.to_blob)
-    when :file
-      s3_file.write(file.read)
-    end
+    s3_file.write(file.read)
     
     #set permissions
     s3_file.acl = :public_read
@@ -44,7 +39,7 @@ module AWSHelper
    puts "done"
   end
   
-  def self.generate_path_for
-    #{}"#{Rails.env}/users/#{user.created_at.year}/#{user.created_at.month}/#{user.created_at.day}/#{user.id}/#{type.to_s}s/#{filename}"
+  def self.generate_path_for(type, owner, filename)
+    "#{type.to_s}/#{owner.id}/#{filename}"
   end
 end

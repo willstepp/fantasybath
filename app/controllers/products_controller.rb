@@ -21,7 +21,7 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
-    @product_types = ProductTypes.all
+    @product_types = ProductType.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -31,7 +31,7 @@ class ProductsController < ApplicationController
 
   def edit
     @product = Product.find(params[:id])
-    @product_types = ProductTypes.all
+    @product_types = ProductType.all
   end
 
   def create
@@ -39,7 +39,7 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       if @product.save
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
+        format.html { flash[:notice] = 'Product was successfully created.'; redirect_to product_images_path @product }
         format.json { render json: @product, status: :created, location: @product }
       else
         format.html { render action: "new" }
@@ -60,6 +60,47 @@ class ProductsController < ApplicationController
         format.json { render json: @product.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def images
+    @product = Product.find(params[:id])
+  end
+
+  def upload_image
+    @product = Product.find(params[:id])
+    if params[:image]
+      image_id = params[:image_id]
+      if image_id
+        image = Image.find(image_id)
+
+        #first remove old file
+        filepath = AWSHelper.generate_path_for(:products, @product, image.filename)
+        AWSHelper.delete_from_s3(filepath)
+
+        image.filename = params[:image].original_filename
+        image.save
+      else
+        @product.images << Image.create(:filename => params[:image].original_filename)
+        @product.save
+      end
+
+      filepath = AWSHelper.generate_path_for(:products, @product, params[:image].original_filename)
+      AWSHelper.upload_to_s3(params[:image], filepath)
+    end
+    
+    redirect_to product_images_path @product
+  end
+
+  def delete_image
+    @product = Product.find(params[:id])
+    @image = Image.find(params[:image_id])
+
+    filepath = AWSHelper.generate_path_for(:products, @product, @image.filename)
+    AWSHelper.delete_from_s3(filepath)
+
+    @image.destroy
+
+    redirect_to product_images_path @product
   end
 
   def destroy

@@ -5,7 +5,7 @@ class Product
   field :name
   field :description
 
-  field :size, :type => Integer
+  field :size, :type => Float
   field :uom
 
   has_many :images, :dependent => :destroy
