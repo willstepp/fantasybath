@@ -4,6 +4,7 @@ ruby '1.9.3'
 
 gem 'rails', '3.2.8'
 gem 'mongoid', '~> 3.0.0'
+gem 'aws-sdk'
 
 group :deveopment do
   gem 'thin'

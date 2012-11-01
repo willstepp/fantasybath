@@ -68,5 +68,10 @@ module Fantasybath
     config.assets.version = '1.0'
 
     config.assets.initialize_on_precompile = false
+
+    AWS.config({
+        :access_key_id => (ENV['S3_ACCESS_KEY'] ||= ''),
+        :secret_access_key => (ENV['S3_SECRET_KEY'] ||= ''),
+      })
   end
 end
