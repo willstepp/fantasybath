@@ -6,7 +6,7 @@ class Scent
   field :description
 
   field :color
-  field :icon
+  has_many :images, :dependent => :destroy
 
   has_and_belongs_to_many :products
   has_and_belongs_to_many :scent_categories

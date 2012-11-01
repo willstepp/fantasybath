@@ -22,6 +22,7 @@ class ProductsController < ApplicationController
   def new
     @product = Product.new
     @product_types = ProductType.all
+    @scent_categories = ScentCategory.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -32,6 +33,7 @@ class ProductsController < ApplicationController
   def edit
     @product = Product.find(params[:id])
     @product_types = ProductType.all
+    @scent_categories = ScentCategory.all
   end
 
   def create
@@ -74,17 +76,17 @@ class ProductsController < ApplicationController
         image = Image.find(image_id)
 
         #first remove old file
-        filepath = AWSHelper.generate_path_for(:products, @product, image.filename)
+        filepath = AWSHelper.generate_path_for(:product, @product, image.filename)
         AWSHelper.delete_from_s3(filepath)
 
         image.filename = params[:image].original_filename
         image.save
       else
-        @product.images << Image.create(:filename => params[:image].original_filename)
+        @product.images << Image.create(:filename => params[:image].original_filename, :type => :product)
         @product.save
       end
 
-      filepath = AWSHelper.generate_path_for(:products, @product, params[:image].original_filename)
+      filepath = AWSHelper.generate_path_for(:product, @product, params[:image].original_filename)
       AWSHelper.upload_to_s3(params[:image], filepath)
     end
     

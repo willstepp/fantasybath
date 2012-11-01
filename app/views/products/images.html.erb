@@ -4,7 +4,7 @@
 <% if @product.images.count > 0 %>
 
   <% @product.images.each do |i| %>
-  <%= image_tag i.generate_url(:products, @product) %>
+  <%= image_tag i.url %>
 
   <%= form_for Image.new, :url => upload_image_path, :html => { :multipart => true } do %>
     <%= hidden_field_tag :id, @product.id %>
