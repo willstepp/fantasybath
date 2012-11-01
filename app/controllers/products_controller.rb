@@ -1,7 +1,6 @@
 class ProductsController < ApplicationController
   http_basic_authenticate_with(:name => ENV['WORKSHOP_USER'], :password => ENV['WORKSHOP_PSWD']) if Rails.env == "production"
-  # GET /products
-  # GET /products.json
+
   def index
     @products = Product.all
 
@@ -11,8 +10,6 @@ class ProductsController < ApplicationController
     end
   end
 
-  # GET /products/1
-  # GET /products/1.json
   def show
     @product = Product.find(params[:id])
 
@@ -22,10 +19,9 @@ class ProductsController < ApplicationController
     end
   end
 
-  # GET /products/new
-  # GET /products/new.json
   def new
     @product = Product.new
+    @product_types = ProductTypes.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -33,13 +29,11 @@ class ProductsController < ApplicationController
     end
   end
 
-  # GET /products/1/edit
   def edit
     @product = Product.find(params[:id])
+    @product_types = ProductTypes.all
   end
 
-  # POST /products
-  # POST /products.json
   def create
     @product = Product.new(params[:product])
 
@@ -54,8 +48,6 @@ class ProductsController < ApplicationController
     end
   end
 
-  # PUT /products/1
-  # PUT /products/1.json
   def update
     @product = Product.find(params[:id])
 
@@ -70,8 +62,6 @@ class ProductsController < ApplicationController
     end
   end
 
-  # DELETE /products/1
-  # DELETE /products/1.json
   def destroy
     @product = Product.find(params[:id])
     @product.destroy

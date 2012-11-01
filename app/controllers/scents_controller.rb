@@ -1,7 +1,6 @@
 class ScentsController < ApplicationController
   http_basic_authenticate_with(:name => ENV['WORKSHOP_USER'], :password => ENV['WORKSHOP_PSWD']) if Rails.env == "production"
-  # GET /scents
-  # GET /scents.json
+
   def index
     @scents = Scent.all
 
@@ -11,8 +10,6 @@ class ScentsController < ApplicationController
     end
   end
 
-  # GET /scents/1
-  # GET /scents/1.json
   def show
     @scent = Scent.find(params[:id])
 
@@ -22,8 +19,6 @@ class ScentsController < ApplicationController
     end
   end
 
-  # GET /scents/new
-  # GET /scents/new.json
   def new
     @scent = Scent.new
 
@@ -33,13 +28,10 @@ class ScentsController < ApplicationController
     end
   end
 
-  # GET /scents/1/edit
   def edit
     @scent = Scent.find(params[:id])
   end
 
-  # POST /scents
-  # POST /scents.json
   def create
     @scent = Scent.new(params[:scent])
 
@@ -54,8 +46,6 @@ class ScentsController < ApplicationController
     end
   end
 
-  # PUT /scents/1
-  # PUT /scents/1.json
   def update
     @scent = Scent.find(params[:id])
 
@@ -70,8 +60,6 @@ class ScentsController < ApplicationController
     end
   end
 
-  # DELETE /scents/1
-  # DELETE /scents/1.json
   def destroy
     @scent = Scent.find(params[:id])
     @scent.destroy
