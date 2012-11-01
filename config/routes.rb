@@ -1,6 +1,9 @@
 Fantasybath::Application.routes.draw do
-  resources :scents
+	scope '/workshop' do
+    match '/' => 'workshop#index', :via => :get, :as => :workshop
+		resources :scents
+  	resources :products
+	end
 
-  resources :products
-
+  root :to =>  "home#index"
 end
