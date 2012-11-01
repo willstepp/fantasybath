@@ -1,2 +1,29 @@
-<h3>Scents</h3>
-<%= link_to "Workshop", workshop_path %>
+<h1>Scents</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Actions</th>
+  </tr>
+
+<% @scents.each do |scent| %>
+  <tr>
+    <td>
+      <%= scent.name %>
+    </td>
+    <td>
+      <%= scent.description %>
+    </td>
+    <td>
+      <%= link_to 'Show', scent %>
+      <%= link_to 'Edit', edit_scent_path(scent) %>
+      <%= link_to 'Destroy', scent, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Scent', new_scent_path %>

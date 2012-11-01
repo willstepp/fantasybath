@@ -1,14 +1,14 @@
 development:
   sessions:
     default:
-      uri: mongodb://admin:ENV['DB_PSWD']@alex.mongohq.com:10043/fantasybath
+      uri: mongodb://admin:Fanta$y2012@alex.mongohq.com:10043/fantasybath
 
 test:
   sessions:
     default:
-      uri: mongodb://admin:ENV['DB_PSWD']@alex.mongohq.com:10043/fantasybath
+      uri: mongodb://admin:Fanta$y2012@alex.mongohq.com:10043/fantasybath
 
 production:
   sessions:
     default:
-      uri: mongodb://admin:ENV['DB_PSWD']@alex.mongohq.com:10043/fantasybath
+      uri: mongodb://admin:Fanta$y2012@alex.mongohq.com:10043/fantasybath

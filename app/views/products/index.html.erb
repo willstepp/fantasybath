@@ -1,2 +1,29 @@
-<h3>Products</h3>
-<%= link_to "Workshop", workshop_path %>
+<h1>Products</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Actions</th>
+  </tr>
+
+<% @products.each do |product| %>
+  <tr>
+    <td>
+      <%= product.name %>
+    </td>
+    <td>
+      <%= product.description %>
+    </td>
+    <td>
+      <%= link_to 'Show', product %>&nbsp;
+      <%= link_to 'Edit', edit_product_path(product) %>&nbsp;
+      <%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Product', new_product_path %>

@@ -1,0 +1,11 @@
+<p id="notice"><%= notice %></p>
+<h3><%= @product.name %></h3>
+<p>
+  <%= @product.description %>
+</p>
+<p>
+  Size: <%= "#{@product.size} #{@product.uom}" %>
+</p>
+
+<%= link_to 'Edit', edit_product_path(@product) %> |
+<%= link_to 'Back', products_path %>

@@ -1,0 +1,26 @@
+<%= form_for(@scent) do |s| %>
+  <% if @scent.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@scent.errors.count, "error") %> prohibited this scent from being saved:</h2>
+
+      <ul>
+      <% @scent.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= s.label :name %>
+  <%= s.text_field :name %>
+  <br/>
+  <%= s.label :description %>
+  <%= s.text_area :description %>
+  <br/>
+  <%= s.label :color %>
+  <%= s.text_field :color %>
+
+  <div class="actions">
+    <%= s.submit %>
+  </div>
+<% end %>
