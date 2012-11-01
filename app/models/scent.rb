@@ -9,5 +9,5 @@ class Scent
   field :icon
 
   has_and_belongs_to_many :products
-  has_and_belongs_to_many :tags, :dependent => :destroy
+  has_and_belongs_to_many :scent_categories
 end
