@@ -123,6 +123,16 @@ class ProductsController < ApplicationController
     redirect_to product_images_path @product
   end
 
+  def upgrades
+    @product = Product.find(params[:id])
+  end
+
+  def update_upgrade
+  end
+
+  def delete_upgrade
+  end
+
   def destroy
     @product = Product.find(params[:id])
     @product.destroy

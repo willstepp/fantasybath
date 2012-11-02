@@ -1,15 +1,27 @@
 <p id="notice"><%= notice %></p>
 <h3><%= @product.name %></h3>
 <p>
+<%= link_to 'Edit', edit_product_path(@product) %> |
+<%= link_to 'Back', products_path %>
+</p>
+<p>
+ <% if !@product.images.first.nil? %>
+    <%= image_tag @product.images.first.url, :style => "width:200px" %>
+ <% end %>
+</p>
+<p>
   <%= @product.description %>
 </p>
 <p>
   Size: <%= "#{@product.size} #{@product.uom}" %>
 </p>
-<h4>Available Scents</h4>
-<% @product.scents.each do |s| %>
-  <p><%= s.name %></p>
-<% end %>
-
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
+<fieldset>
+  <legend>Available Scents</legend>
+  <% @product.scents.each do |s| %>
+    <p><%= s.name %></p>
+  <% end %>
+</fieldset>
+<br/>
+<fieldset>
+  <legend>Upgrades</legend>
+</fieldset>

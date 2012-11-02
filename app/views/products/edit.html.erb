@@ -1,5 +1,21 @@
-<h1>Editing product</h1>
-
+<h1>Edit product</h1>
+<p>
+<% if !@product.images.first.nil? %>
+  <%= image_tag@product.images.first.url, :style => "width:100px;" %>
+<% end %>
+<br/>
+<%= link_to "Edit images", product_images_path(@product) %>
+</p>
+<%= link_to "Edit upgrades", product_upgrades_path(@product) %>
+<% if @product.upgrades.count > 0 %>
+<p>
+  <% @product.upgrades.each do |u| %>
+    <%= u.description %>
+    <br/>
+  <% end %>
+  
+</p>
+<% end %>
 <%= render 'form' %>
 
 <%= link_to 'Show', @product %> |
