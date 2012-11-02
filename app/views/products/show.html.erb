@@ -6,6 +6,10 @@
 <p>
   Size: <%= "#{@product.size} #{@product.uom}" %>
 </p>
+<h4>Available Scents</h4>
+<% @product.scents.each do |s| %>
+  <p><%= s.name %></p>
+<% end %>
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>

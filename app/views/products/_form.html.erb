@@ -25,6 +25,15 @@
   <%= p.label :product_type_id, "Product Type" %>
   <%= p.select :product_type_id, options_from_collection_for_select(@product_types, :id, :name, @product.product_type.nil? ? nil : @product.product_type.id) %>
 
+  <h3>Choose Available Scents</h3>
+  <% @scents.each do |s| %>
+    <label for="<%= s.name %>">
+    <%= check_box_tag "scents[]", s.id, @product.scents.where(:id => s.id).exists? ? true : false, :id => s.name %> 
+    <%= s.name %>
+    </label>
+    <br/>
+  <% end %>
+
   <div class="actions">
     <%= p.submit %>
   </div>

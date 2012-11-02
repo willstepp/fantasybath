@@ -22,7 +22,7 @@ class ProductsController < ApplicationController
   def new
     @product = Product.new
     @product_types = ProductType.all
-    @scent_categories = ScentCategory.all
+    @scents = Scent.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -33,11 +33,19 @@ class ProductsController < ApplicationController
   def edit
     @product = Product.find(params[:id])
     @product_types = ProductType.all
-    @scent_categories = ScentCategory.all
+    @scents = Scent.all
   end
 
   def create
     @product = Product.new(params[:product])
+
+    scents = params[:scents]
+    if !scents.nil?
+      scents.each do |scent|
+        s = Scent.find(scent)
+        @product.scents << s
+      end
+    end
 
     respond_to do |format|
       if @product.save
@@ -52,6 +60,16 @@ class ProductsController < ApplicationController
 
   def update
     @product = Product.find(params[:id])
+    @product.scents.clear
+
+    scents = params[:scents]
+    if !scents.nil?
+      scents.each do |scent|
+        s = Scent.find(scent)
+        @product.scents << s
+      end
+    @product.save
+    end
 
     respond_to do |format|
       if @product.update_attributes(params[:product])
