@@ -1,3 +1,17 @@
 <p id="notice"><%= notice %></p>
-<%= link_to @product.name, product_path(@product), :class => "btn btn-small" %>
+<%= link_to @product.name, edit_product_path(@product), :class => "btn btn-small" %>
 <h3>Upgrades</h3>
+<%= link_to "New upgrade", new_upgrade_path(@product), :class => "btn btn-success" %>
+<hr/>
+<% @product.upgrades.each do |u| %>
+<div>
+  <p><%= u.description %></p>
+  <p><%= number_to_currency(u.amount) %></p>
+  <span>
+    <%= link_to "Edit", edit_upgrade_path(@product, u) %>
+    &nbsp;
+    <%= link_to "Delete", destroy_upgrade_path(@product, u), :method => :delete, :confirm => "Are you sure you want to delete this upgrade?", :style => "color:red" %>
+  </span>
+</div>
+<hr/>
+<% end %> 

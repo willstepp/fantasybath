@@ -6,7 +6,7 @@
 <br/>
 <%= link_to "Edit images", product_images_path(@product) %>
 </p>
-<%= link_to "Edit upgrades", product_upgrades_path(@product) %>
+<%= link_to "Edit upgrades", upgrades_path(@product) %>
 <% if @product.upgrades.count > 0 %>
 <p>
   <% @product.upgrades.each do |u| %>

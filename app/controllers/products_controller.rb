@@ -124,13 +124,50 @@ class ProductsController < ApplicationController
   end
 
   def upgrades
-    @product = Product.find(params[:id])
+    @product = Product.find(params[:product_id])
+  end
+
+  def new_upgrade
+    @product = Product.find(params[:product_id])
+  end
+
+  def create_upgrade
+    p = Product.find(params[:product_id])
+    u = Upgrade.create(params)
+    if u.valid?
+      p.upgrades << u
+      p.save
+      redirect_to upgrades_path(p, u)
+    else
+      flash[:errors] = u.errors.full_messages
+      redirect_to new_upgrade_path(p)
+    end
+  end
+
+  def edit_upgrade
+    @product = Product.find(params[:product_id])
+    @upgrade = Upgrade.find(params[:id])
   end
 
   def update_upgrade
+    p = Product.find(params[:product_id])
+    u = Upgrade.find(params[:id])
+    if u.update_attributes(params)
+      flash[:notice] = "Upgrade has been updated"
+      redirect_to upgrades_path(p)
+    else
+      flash[:errors] = u.errors.full_messages
+      redirect_to edit_upgrade_path(p, u)
+    end
   end
 
-  def delete_upgrade
+  def destroy_upgrade
+    p = Product.find(params[:product_id])
+    u = Upgrade.find(params[:id])
+    u.destroy
+
+    flash[:notice] = "Upgrade has been deleted"
+    redirect_to upgrades_path(p)
   end
 
   def destroy

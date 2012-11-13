@@ -1,0 +1,29 @@
+<div class="container">
+<fieldset>
+<legend>Create upgrade</legend>
+
+<%= form_tag create_upgrade_path(@product), :class => "form-horizontal", :method => :post do %>
+  <div class="control-group">
+    <label class="control-label" for="description">Description</label>
+    <div class="controls">
+      <textarea class="span4" id="description" name="description" rows="2"></textarea>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="amount">Amount</label>
+    <div class="controls">
+      <div class="input-prepend">
+      <span class="add-on">$</span>
+      <input class="span1" type="text" id="amount" name="amount" value="">
+      </div>
+    </div>
+  </div>
+  <div class="control-group">
+  <div class="controls">
+    <%= link_to "Cancel", upgrades_path(@product) %>&nbsp;&nbsp;<%= submit_tag "Create upgrade", :class => "btn btn-success" %>
+  </div>
+  </div>
+<% end %>
+
+</fieldset>
+</div>
