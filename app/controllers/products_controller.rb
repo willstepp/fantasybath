@@ -23,11 +23,11 @@ class ProductsController < ApplicationController
     @product = Product.new
     @product_types = ProductType.all
     @scents = Scent.all
-
+ 
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @product }
-    end
+    end  
   end
 
   def edit
