@@ -20,7 +20,46 @@
   <%= s.label :color %>
   <%= s.text_field :color, :class => "color" %>
 
+  <h3>Choose Available Products</h3>
+  <% @products.each do |p| %>
+    <label for="<%= p.name %>">
+    <%= check_box_tag "products[]", p.id, @scent.products.where(:id => p.id).exists? ? true : false, :id => p.name, :class => "product-cb" %> 
+    <%= p.name %>
+    </label>
+    <%= text_field_tag "prices[]", @scent.prices.where(:product_id => p.id).exists? ? @scent.prices.where(:product_id => p.id).first.amount : "", :class => "#{p.id}-price" %>
+    <br/>
+  <% end %>
+
   <div class="actions">
     <%= s.submit %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+
+  $(function() {
+
+    //disable price input on unchecked products
+    $('.product-cb').each(function() {
+      var checked = $(this).attr('checked') === 'checked';
+      var id = $(this).val();
+      var price = $('.' + id + '-price');
+      if (checked !== true) {
+        price.attr('disabled', 'disabled');
+      }
+    })
+  });
+
+  //clear price from unchecked products, enable price input when checked
+  $(".product-cb").change(function() {
+    var id = $(this).val();
+    var price = $('.' + id + '-price');
+    if(this.checked) {
+      price.attr('disabled', null);
+    }
+    else {
+      price.val('');
+      price.attr('disabled', 'disabled');
+    }
+});
+</script>

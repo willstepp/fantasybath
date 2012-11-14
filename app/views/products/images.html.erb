@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-<%= link_to @product.name, product_path(@product), :class => "btn btn-small" %>
+<%= link_to @product.name, edit_product_path(@product), :class => "btn btn-small" %>
 <h3>Images</h3>
 <% if @product.images.count > 0 %>
 

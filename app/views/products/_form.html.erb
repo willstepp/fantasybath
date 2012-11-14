@@ -28,9 +28,10 @@
   <h3>Choose Available Scents</h3>
   <% @scents.each do |s| %>
     <label for="<%= s.name %>">
-    <%= check_box_tag "scents[]", s.id, @product.scents.where(:id => s.id).exists? ? true : false, :id => s.name %> 
+    <%= check_box_tag "scents[]", s.id, @product.scents.where(:id => s.id).exists? ? true : false, :id => s.name, :class => "scent-cb" %> 
     <%= s.name %>
     </label>
+    <%= text_field_tag "prices[]", @product.prices.where(:scent_id => s.id).exists? ? @product.prices.where(:scent_id => s.id).first.amount : "", :class => "#{s.id}-price" %>
     <br/>
   <% end %>
 
@@ -38,3 +39,32 @@
     <%= p.submit %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+
+  $(function() {
+
+    //disable price input on unchecked scents
+    $('.scent-cb').each(function() {
+      var checked = $(this).attr('checked') === 'checked';
+      var id = $(this).val();
+      var price = $('.' + id + '-price');
+      if (checked !== true) {
+        price.attr('disabled', 'disabled');
+      }
+    })
+  });
+
+  //clear price from unchecked scents, enable price input when checked
+  $(".scent-cb").change(function() {
+    var id = $(this).val();
+    var price = $('.' + id + '-price');
+    if(this.checked) {
+      price.attr('disabled', null);
+    }
+    else {
+      price.val('');
+      price.attr('disabled', 'disabled');
+    }
+});
+</script>

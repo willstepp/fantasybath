@@ -10,6 +10,7 @@ class Product
 
   has_many :images, :dependent => :destroy
   has_many :upgrades, :dependent => :destroy
+  has_many :prices, :dependent => :destroy
   
   belongs_to :product_type
   has_and_belongs_to_many :scents

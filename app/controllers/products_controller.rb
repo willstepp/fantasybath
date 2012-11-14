@@ -21,6 +21,7 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
+
     @product_types = ProductType.all
     @scents = Scent.all
  
@@ -39,11 +40,16 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(params[:product])
 
+    @prices = params[:prices].nil? ? [] : params[:prices].reject { |p| p.empty? }
+
     scents = params[:scents]
     if !scents.nil?
-      scents.each do |scent|
+      scents.each_with_index do |scent, i|
         s = Scent.find(scent)
         @product.scents << s
+        if !@prices[i].nil?
+          @product.prices << Price.create(:amount => @prices[i].to_f, :scent_id => s.id)
+        end
       end
     end
 
@@ -61,12 +67,18 @@ class ProductsController < ApplicationController
   def update
     @product = Product.find(params[:id])
     @product.scents.clear
+    @product.prices.clear
+
+    @prices = params[:prices].nil? ? [] : params[:prices].reject { |p| p.empty? }
 
     scents = params[:scents]
     if !scents.nil?
-      scents.each do |scent|
+      scents.each_with_index do |scent, i|
         s = Scent.find(scent)
         @product.scents << s
+        if !@prices[i].nil?
+          @product.prices << Price.create(:amount => @prices[i].to_f, :scent_id => s.id)
+        end
       end
     @product.save
     end
@@ -115,7 +127,7 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
     @image = Image.find(params[:image_id])
 
-    filepath = AWSHelper.generate_path_for(:products, @product, @image.filename)
+    filepath = AWSHelper.generate_path_for(:product, @product, @image.filename)
     AWSHelper.delete_from_s3(filepath)
 
     @image.destroy

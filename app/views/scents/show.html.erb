@@ -1,11 +1,22 @@
 <p id="notice"><%= notice %></p>
 <h3><%= @scent.name %></h3>
 <p>
+ <% if !@scent.images.first.nil? %>
+    <%= image_tag @scent.images.first.url, :style => "width:200px" %>
+ <% end %>
+</p>
+<p>
   <%= @scent.description %>
 </p>
 <p>
   <%= @scent.color %>
 </p>
+<fieldset>
+  <legend>Available Products</legend>
+  <% @scent.products.each do |p| %>
+    <p><%= "#{p.name} : #{p.prices.where(:scent_id => @scent.id).exists? ? number_to_currency(p.prices.where(:scent_id => @scent.id).first.amount) : ""}" %></p>
+  <% end %>
+</fieldset>
 
 <%= link_to 'Edit', edit_scent_path(@scent) %> |
 <%= link_to 'Back', scents_path %>

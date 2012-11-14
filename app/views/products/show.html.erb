@@ -18,7 +18,7 @@
 <fieldset>
   <legend>Available Scents</legend>
   <% @product.scents.each do |s| %>
-    <p><%= s.name %></p>
+    <p><%= "#{s.name} : #{s.prices.where(:product_id => @product.id).exists? ? number_to_currency(s.prices.where(:product_id => @product.id).first.amount) : ""}" %></p>
   <% end %>
 </fieldset>
 <br/>

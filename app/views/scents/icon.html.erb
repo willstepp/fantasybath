@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+<%= link_to @scent.name, edit_scent_path(@scent), :class => "btn btn-small" %>
+<h3>Icon</h3>
+<% if @scent.images.count > 0 %>
+
+  <% @scent.images.each do |i| %>
+  <%= image_tag i.url %>
+
+  <%= form_for Image.new, :url => upload_icon_path, :html => { :multipart => true } do %>
+    <%= hidden_field_tag :id, @scent.id %>
+    <%= hidden_field_tag :image_id, i.id %>
+    <%= file_field_tag :image %>
+    <br/><br/>
+    <%= submit_tag "Update icon", :class => "btn" %>
+  <% end %>
+
+  <%= form_tag delete_icon_path, :method => :delete do %>
+    <%= hidden_field_tag :id, @scent.id %>
+    <%= hidden_field_tag :image_id, i.id %>
+    <%= submit_tag "Delete", :class => "btn btn-small btn-danger", :confirm => "Are you sure you want to delete this icon?" %>
+  <% end %> 
+
+  <% end %>
+
+<% else %>
+
+<%= form_for Image.new, :url => upload_icon_path, :html => { :multipart => true } do %>
+  <%= hidden_field_tag :id, @scent.id %>
+  <%= file_field_tag :image %>
+  <br/><br/>
+  <%= submit_tag "Upload icon", :class => "btn" %>
+<% end %>
+
+<% end %>
