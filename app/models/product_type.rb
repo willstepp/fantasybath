@@ -4,5 +4,5 @@ class ProductType
 
   field :name
 
-  has_many :products
+  has_many :products, :dependent => :nullify
 end

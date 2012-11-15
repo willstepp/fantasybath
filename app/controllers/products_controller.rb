@@ -94,6 +94,18 @@ class ProductsController < ApplicationController
     end
   end
 
+  def destroy
+    @product = Product.find(params[:id])
+    @product.destroy
+
+    respond_to do |format|
+      format.html { redirect_to products_url }
+      format.json { head :no_content }
+    end
+  end
+
+  #Images
+
   def images
     @product = Product.find(params[:id])
   end
@@ -134,6 +146,8 @@ class ProductsController < ApplicationController
 
     redirect_to product_images_path @product
   end
+
+  #Upgrades
 
   def upgrades
     @product = Product.find(params[:product_id])
@@ -182,13 +196,18 @@ class ProductsController < ApplicationController
     redirect_to upgrades_path(p)
   end
 
-  def destroy
-    @product = Product.find(params[:id])
-    @product.destroy
+  #Product Types
 
-    respond_to do |format|
-      format.html { redirect_to products_url }
-      format.json { head :no_content }
-    end
+  def product_types
+    @product_types = ProductType.all
+  end
+
+  def create_product_type
+  end
+
+  def update_product_type
+  end
+
+  def destroy_product_type
   end
 end

@@ -4,5 +4,5 @@ class ScentCategory
 
   field :name
 
-  has_and_belongs_to_many :scents
+  has_and_belongs_to_many :scents, :dependent => :nullify
 end
