@@ -1,2 +1,26 @@
 <h3>Bath Tub</h3>
-<%= @bathtub.id %>
+<table class="table">
+  <tr>
+    <th>Id</th>
+    <th>Quantity</th>
+    <th></th>
+  </tr>
+<% @bathtub.order.order_items.each do |oi| %>
+  <tr>
+    <td><%= oi.id %></td>
+    <td>
+      <%= form_tag bathtub_update_path, :method => :put do %>
+        <%= hidden_field_tag :order_item_id, oi.id %>
+        <%= text_field_tag :quantity, oi.quantity, :class => "span1" %>
+        <%= submit_tag "Update", :class => "btn btn-mini" %>
+      <% end %>
+    </td>
+    <td>
+      <%= form_tag bathtub_remove_path, :method => :post do %>
+        <%= hidden_field_tag :order_item_id, oi.id %>
+        <%= submit_tag "Remove", :class => "btn btn-mini btn-danger" %>
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>

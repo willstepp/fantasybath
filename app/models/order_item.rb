@@ -7,7 +7,7 @@ class OrderItem
   belongs_to :product
   belongs_to :scent
 
-  has_many :upgrades
+  has_and_belongs_to_many :upgrades, :inverse_of => nil
 
   belongs_to :order
 end

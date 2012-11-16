@@ -1,0 +1,25 @@
+<%= link_to "Products", catalog_index_path(:products), :class => "btn btn-small" %>
+<h3><%= @product.name %></h3>
+<p>
+  <%= @product.description %>
+</p>
+<%= form_tag bathtub_add_path, :method => :post do %>
+  <%= hidden_field_tag :product_id, @product.id %>
+  <label for="scent_id">Choose a scent</label>
+  <%= select_tag :scent_id, options_from_collection_for_select(@product.scents, :id, :name) %>
+  <br/>
+  <label for="quantity">How many do you want?</label>
+  <%= text_field_tag :quantity, 1, :class => "span1" %>
+  <br/>
+  <% if !@product.upgrades.empty? %>
+    <label>Choose an upgrade</label>
+    <% @product.upgrades.each do |u| %>
+      <label for="<%= u.id %>">
+      <%= check_box_tag "upgrades[]", u.id, false, :id => u.id %> 
+      <%= u.description %>
+      </label>
+    <% end %>
+  <% end %>
+  <br/><br/>
+  <%= submit_tag "Add to Bathtub", :class => "btn btn-success" %>
+<% end %>

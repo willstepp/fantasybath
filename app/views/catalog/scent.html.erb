@@ -1,0 +1,14 @@
+<%= link_to "Scents", catalog_index_path(:scents), :class => "btn btn-small" %>
+<h3><%= @scent.name %></h3>
+<p>
+  <%= @scent.description %>
+</p>
+<%= form_tag bathtub_add_path, :method => :post do %>
+  <%= hidden_field_tag :scent_id, @scent.id %>
+  <label for="product_id">Choose a product</label>
+  <%= select_tag :product_id, options_from_collection_for_select(@scent.products, :id, :name) %>
+  <label for="quantity">How many do you want?</label>
+  <%= text_field_tag :quantity, 1, :class => "span1" %>
+  <br/><br/>
+  <%= submit_tag "Add to Bathtub", :class => "btn btn-success" %>
+<% end %>
