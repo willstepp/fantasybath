@@ -37,7 +37,7 @@ class ScentsController < ApplicationController
   end
 
   def create
-    @scent = Scent.new(params[:scent])
+    @scent = Scent.create(params[:scent])
     @prices = params[:prices].nil? ? [] : params[:prices].reject { |p| p.empty? }
 
     products = params[:products]
@@ -46,9 +46,10 @@ class ScentsController < ApplicationController
         p = Product.find(product)
         @scent.products << p
         if !@prices[i].nil?
-          @scent.prices << Price.create(:amount => @prices[i].to_f, :product_id => p.id)
+          @scent.prices << Price.create(:amount => @prices[i].to_f, :product_id => p.id, :scent_id => @scent.id)
         end
       end
+      @scent.save
     end
 
     scent_categories = params[:scent_categories]
@@ -57,6 +58,7 @@ class ScentsController < ApplicationController
         sc = ScentCategory.find(scent_category)
         @scent.scent_categories << sc
       end
+      @scent.save
     end
 
     respond_to do |format|
@@ -84,7 +86,7 @@ class ScentsController < ApplicationController
         p = Product.find(product)
         @scent.products << p
         if !@prices[i].nil?
-          @scent.prices << Price.create(:amount => @prices[i].to_f, :product_id => p.id)
+          @scent.prices << Price.create(:amount => @prices[i].to_f, :product_id => p.id, :scent_id => @scent.id)
         end
       end
       @scent.save
