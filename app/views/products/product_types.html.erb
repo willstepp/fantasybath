@@ -1,2 +1,22 @@
 <%= link_to "Products", products_path, :class => "btn btn-mini" %>
 <h2>Product Types</h2>
+<%= link_to "Add", new_product_type_path %>
+<br/><br/>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Actions</th>
+  </tr>
+
+<% @product_types.each do |pt| %>
+  <tr>
+    <td>
+      <%= pt.name %>
+    </td>
+    <td>
+      <%= link_to 'Edit', edit_product_type_path(pt) %>&nbsp;
+      <%= link_to 'Delete', destroy_product_type_path(pt), :method => :delete, :data => { :confirm => 'Are you sure?' } %>
+    </td>
+  </tr>
+<% end %>
+</table>

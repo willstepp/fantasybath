@@ -1,0 +1,21 @@
+<div class="create-product-type">
+<fieldset>
+<legend>Edit the scent category</legend>
+
+<%= form_tag update_scent_category_path, :class => "form-horizontal", :method => :put do %>
+  <%= hidden_field_tag :id, @sc.id %>
+  <div class="control-group">
+    <label class="control-label" for="name">Name</label>
+    <div class="controls">
+      <input class="span4" type="text" id="name" name="name" value="<%= @sc.name %>">
+    </div>
+  </div>
+  <div class="control-group">
+  <div class="controls">
+    <%= link_to "Cancel", scent_categories_path %>&nbsp;&nbsp;<%= submit_tag "Save changes", :class => "btn btn-success" %>
+  </div>
+  </div>
+<% end %>
+
+</fieldset>
+</div>

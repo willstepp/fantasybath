@@ -140,4 +140,46 @@ class ScentsController < ApplicationController
 
     redirect_to scent_icon_path @scent
   end
+
+  #Scent Categories
+
+  def scent_categories
+    @scent_categories = ScentCategory.all
+  end
+
+  def new_scent_category
+  end
+
+  def create_scent_category
+    name = params[:name]
+    sc = ScentCategory.where(:name => name).first
+    if sc.nil? and !name.blank?
+      sc = ScentCategory.create(:name => name)
+      redirect_to scent_categories_path
+    else
+      redirect_to new_scent_category_path
+    end
+  end
+
+  def edit_scent_category
+    @sc = ScentCategory.find(params[:id])
+  end
+
+  def update_scent_category
+    @sc = ScentCategory.find(params[:id])
+    @sc.update_attributes(params)
+    if @sc.valid?
+      flash[:notice] = "Success"
+      redirect_to scent_categories_path
+    else
+      flash[:error] = @sc.errors.full_messages
+      redirect_to edit_scent_categories_path(@sc)
+    end
+  end
+
+  def destroy_scent_category
+    @sc = ScentCategory.find(params[:id])
+    @sc.destroy
+    redirect_to scent_categories_path
+  end
 end

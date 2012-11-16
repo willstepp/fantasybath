@@ -1,0 +1,22 @@
+<%= link_to "Scents", scents_path, :class => "btn btn-mini" %>
+<h2>Scent Categories</h2>
+<%= link_to "Add", new_scent_category_path %>
+<br/><br/>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Actions</th>
+  </tr>
+
+<% @scent_categories.each do |sc| %>
+  <tr>
+    <td>
+      <%= sc.name %>
+    </td>
+    <td>
+      <%= link_to 'Edit', edit_scent_category_path(sc) %>&nbsp;
+      <%= link_to 'Delete', destroy_scent_category_path(sc), :method => :delete, :data => { :confirm => 'Are you sure?' } %>
+    </td>
+  </tr>
+<% end %>
+</table>

@@ -1,0 +1,21 @@
+<div class="create-product-type">
+<fieldset>
+<legend>Edit the product type</legend>
+
+<%= form_tag update_product_type_path, :class => "form-horizontal", :method => :put do %>
+  <%= hidden_field_tag :id, @pt.id %>
+  <div class="control-group">
+    <label class="control-label" for="name">Name</label>
+    <div class="controls">
+      <input class="span4" type="text" id="name" name="name" value="<%= @pt.name %>">
+    </div>
+  </div>
+  <div class="control-group">
+  <div class="controls">
+    <%= link_to "Cancel", product_types_path %>&nbsp;&nbsp;<%= submit_tag "Save changes", :class => "btn btn-success" %>
+  </div>
+  </div>
+<% end %>
+
+</fieldset>
+</div>

@@ -202,12 +202,39 @@ class ProductsController < ApplicationController
     @product_types = ProductType.all
   end
 
+  def new_product_type
+  end
+
   def create_product_type
+    name = params[:name]
+    pt = ProductType.where(:name => name).first
+    if pt.nil? and !name.blank?
+      pt = ProductType.create(:name => name)
+      redirect_to product_types_path
+    else
+      redirect_to new_product_type_path
+    end
+  end
+
+  def edit_product_type
+    @pt = ProductType.find(params[:id])
   end
 
   def update_product_type
+    @pt = ProductType.find(params[:id])
+    @pt.update_attributes(params)
+    if @pt.valid?
+      flash[:notice] = "Success"
+      redirect_to product_types_path
+    else
+      flash[:error] = @pt.errors.full_messages
+      redirect_to edit_product_type_path(@pt)
+    end
   end
 
   def destroy_product_type
+    @pt = ProductType.find(params[:id])
+    @pt.destroy
+    redirect_to product_types_path
   end
 end

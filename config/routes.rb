@@ -20,9 +20,18 @@ Fantasybath::Application.routes.draw do
         match '/products/:product_id/upgrades/:id/destroy' => 'products#destroy_upgrade', :via => :delete, :as => :destroy_upgrade
 
         match '/product_types' => 'products#product_types', :via => :get, :as => :product_types
+        match '/new_product_type' => 'products#new_product_type', :via => :get, :as => :new_product_type
         match '/create_product_type' => 'products#create_product_type', :via => :post, :as => :create_product_type
+        match '/edit_product_type/:id' => 'products#edit_product_type', :via => :get, :as => :edit_product_type
         match '/update_product_type' => 'products#update_product_type', :via => :put, :as => :update_product_type
-        match '/destroy_product_type' => 'products#destroy_product_type', :via => :delete, :as => :destroy_product_type
+        match '/destroy_product_type/:id' => 'products#destroy_product_type', :via => :delete, :as => :destroy_product_type
+
+        match '/scent_categories' => 'scents#scent_categories', :via => :get, :as => :scent_categories
+        match '/new_scent_category' => 'scents#new_scent_category', :via => :get, :as => :new_scent_category
+        match '/create_scent_category' => 'scents#create_scent_category', :via => :post, :as => :create_scent_category
+        match '/edit_scent_category/:id' => 'scents#edit_scent_category', :via => :get, :as => :edit_scent_category
+        match '/update_scent_category' => 'scents#update_scent_category', :via => :put, :as => :update_scent_category
+        match '/destroy_scent_category/:id' => 'scents#destroy_scent_category', :via => :delete, :as => :destroy_scent_category
 	end
     match '/bathtub' => 'bath_tub#index', :via => :get, :as => :bathub
     root :to =>  "home#index"

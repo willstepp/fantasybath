@@ -1,35 +1,3 @@
-#product types
-p = ProductType.where(:name => "Fizzy").first
-if p.nil?
-  ProductType.create(:name => "Fizzy")
-end
-
-p = ProductType.where(:name => "Bulk Powder").first
-if p.nil?
-  ProductType.create(:name => "Bulk Powder")
-end
-
-p = ProductType.where(:name => "Perfume Spray").first
-if p.nil?
-  ProductType.create(:name => "Perfume Spray")
-end
-
-p = ProductType.where(:name => "Candle").first
-if p.nil?
-  ProductType.create(:name => "Candle")
-end
-
-p = ProductType.where(:name => "Shea Butter Bar").first
-if p.nil?
-  ProductType.create(:name => "Shea Butter Bar")
-end
-
-p = ProductType.where(:name => "Bath Tart").first
-if p.nil?
-  ProductType.create(:name => "Bath Tart")
-end
-
-
 #scent categories
 s = ScentCategory.where(:name => "Floral").first
 if s.nil?
