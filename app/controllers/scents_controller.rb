@@ -22,6 +22,7 @@ class ScentsController < ApplicationController
   def new
     @scent = Scent.new
     @products = Product.all
+    @scent_categories = ScentCategory.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -32,6 +33,7 @@ class ScentsController < ApplicationController
   def edit
     @scent = Scent.find(params[:id])
     @products = Product.all
+    @scent_categories = ScentCategory.all
   end
 
   def create
@@ -46,6 +48,14 @@ class ScentsController < ApplicationController
         if !@prices[i].nil?
           @scent.prices << Price.create(:amount => @prices[i].to_f, :product_id => p.id)
         end
+      end
+    end
+
+    scent_categories = params[:scent_categories]
+    if !scent_categories.nil?
+      scent_categories.each do |scent_category|
+        sc = ScentCategory.find(scent_category)
+        @scent.scent_categories << sc
       end
     end
 
@@ -64,6 +74,7 @@ class ScentsController < ApplicationController
     @scent = Scent.find(params[:id])
     @scent.products.clear
     @scent.prices.clear
+    @scent.scent_categories.clear
 
     @prices = params[:prices].nil? ? [] : params[:prices].reject { |p| p.empty? }
 
@@ -75,6 +86,15 @@ class ScentsController < ApplicationController
         if !@prices[i].nil?
           @scent.prices << Price.create(:amount => @prices[i].to_f, :product_id => p.id)
         end
+      end
+      @scent.save
+    end
+
+    scent_categories = params[:scent_categories]
+    if !scent_categories.nil?
+      scent_categories.each do |scent_category|
+        sc = ScentCategory.find(scent_category)
+        @scent.scent_categories << sc
       end
       @scent.save
     end

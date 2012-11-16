@@ -30,6 +30,15 @@
     <br/>
   <% end %>
 
+  <h3>Scent Categories</h3>
+  <% @scent_categories.each do |sc| %>
+    <label for="<%= sc.name %>">
+    <%= check_box_tag "scent_categories[]", sc.id, @scent.scent_categories.where(:id => sc.id).exists? ? true : false, :id => sc.name, :class => "scent_category-cb" %> 
+    <%= sc.name %>
+    </label>
+    <br/>
+  <% end %>
+
   <div class="actions">
     <%= s.submit %>
   </div>
