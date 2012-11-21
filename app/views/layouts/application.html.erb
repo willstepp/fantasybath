@@ -7,6 +7,16 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <a class="brand" href="<%= root_path %>">Fantasy Bath</a>
+    <ul class="nav pull-right">
+      <li class="<%= yield(:bathtub) %>"><a href="<%= bathtub_path %>">Bathtub</a></li>
+    </ul>
+  </div>
+</div>
+
 <div class="container">
   <%= yield %>
 </div>

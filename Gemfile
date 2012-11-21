@@ -6,6 +6,8 @@ gem 'rails', '3.2.8'
 gem 'mongoid', '~> 3.0.0'
 gem 'aws-sdk'
 
+gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
+
 group :deveopment do
   gem 'thin'
 end

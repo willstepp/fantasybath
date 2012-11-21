@@ -15,7 +15,7 @@
     <label>Choose an upgrade</label>
     <% p.upgrades.each do |u| %>
       <label for="<%= u.id %>">
-      <%= check_box_tag "upgrades[]", u.id, false, :id => u.id %> 
+      <%= check_box_tag "upgrades[]", u.id, false, :class => "upgrade-check-box", :id => u.id %> 
       <%= u.description %>
     <% end %>
     </div>
@@ -30,6 +30,7 @@
     $('#product_id').change(function() {
       var id = $(this).val();
       $('div.upgrade-containers').hide();
+      $('.upgrade-check-box').attr("checked", false);
       $('div#' + id + '-upgrade-container').show();
     });
 

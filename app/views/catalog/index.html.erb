@@ -1,17 +1,22 @@
-<h2>Fantasy Bath</h2>
-<fieldset>
-  <legend><%= @category_type.to_s.capitalize %></legend>
-  <% if @category_type == :products %>
-    <% @products.each do |p| %>
-      <p>
-      <%= link_to p.name, catalog_product_path(p) %>
-      </p>
-    <% end %>
-  <% else %>
-    <% @scents.each do |s| %>
-      <p>
-      <%= link_to s.name, catalog_scent_path(s) %>
-      </p>
-    <% end %>
+<ul class="nav nav-pills">
+  <li class="<%= @category_type == :products ? "active" : "" %>">
+    <a href="<%= catalog_index_path(:products) %>">Products</a>
+  </li>
+  <li class="<%= @category_type == :scents ? "active" : "" %>">
+    <a href="<%= catalog_index_path(:scents) %>">Scents</a>
+  </li>
+</ul>
+<hr/>
+<% if @category_type == :products %>
+  <% @products.each do |p| %>
+    <p>
+    <%= link_to p.name, catalog_product_path(p) %>
+    </p>
   <% end %>
-</fieldset>
+<% else %>
+  <% @scents.each do |s| %>
+    <p>
+    <%= link_to s.name, catalog_scent_path(s) %>
+    </p>
+  <% end %>
+<% end %>
