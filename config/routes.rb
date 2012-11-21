@@ -35,6 +35,7 @@ Fantasybath::Application.routes.draw do
 	end
     
     match '/checkout' => 'bath_tub#checkout', :via => :get, :as => :checkout
+    match '/submit_payment' => 'bath_tub#submit_payment', :via => :post, :as => :submit_payment
     
     match '/bathtub' => 'bath_tub#index', :via => :get, :as => :bathtub
     match '/bathtub_add' => 'bath_tub#add', :via => :post, :as => :bathtub_add

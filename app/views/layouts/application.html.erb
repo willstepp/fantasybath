@@ -3,7 +3,14 @@
 <head>
   <title>Fantasy Bath</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
+
   <%= javascript_include_tag "application" %>
+
+  <script type="text/javascript" src="https://js.stripe.com/v1/"></script>
+  <script type="text/javascript">
+    Stripe.setPublishableKey('pk_Jxj2Q6PmPPbIfJe6ADSSExa3w9Cb9');
+  </script>
+
   <%= csrf_meta_tags %>
 </head>
 <body>

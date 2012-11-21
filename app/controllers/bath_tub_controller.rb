@@ -39,6 +39,21 @@ class BathTubController < ApplicationController
   def checkout
   end
 
+  def submit_payment
+    Stripe.api_key = "sk_QrS2JAAYDGLvUrXxVKBfiz0uy4phC"
+
+    token = params[:stripeToken]
+
+    charge = Stripe::Charge.create(
+      :amount => @bathtub.order.total,
+      :currency => "usd",
+      :card => token,
+      :description => "payinguser@example.com"
+    )
+
+    raise charge.to_yaml
+  end
+
   protected
 
   def update_bathtub
