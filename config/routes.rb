@@ -34,6 +34,8 @@ Fantasybath::Application.routes.draw do
         match '/destroy_scent_category/:id' => 'scents#destroy_scent_category', :via => :delete, :as => :destroy_scent_category
 	end
     
+    match '/checkout' => 'bath_tub#checkout', :via => :get, :as => :checkout
+    
     match '/bathtub' => 'bath_tub#index', :via => :get, :as => :bathtub
     match '/bathtub_add' => 'bath_tub#add', :via => :post, :as => :bathtub_add
     match '/bathtub_update' => 'bath_tub#update', :via => :put, :as => :bathtub_update

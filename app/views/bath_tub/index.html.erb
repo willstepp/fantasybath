@@ -3,6 +3,7 @@
   <tr>
     <th>Id</th>
     <th>Quantity</th>
+    <th>Upgrades</th>
     <th></th>
   </tr>
 <% @bathtub.order.order_items.each do |oi| %>
@@ -16,6 +17,9 @@
       <% end %>
     </td>
     <td>
+      <%= oi.upgrades.count %>
+    </td>
+    <td>
       <%= form_tag bathtub_remove_path, :method => :post do %>
         <%= hidden_field_tag :order_item_id, oi.id %>
         <%= submit_tag "Remove", :class => "btn btn-mini btn-danger" %>
@@ -24,3 +28,5 @@
   </tr>
 <% end %>
 </table>
+<br/>
+<%= link_to "Checkout", checkout_path, :class => "btn btn-success" %>

@@ -36,6 +36,9 @@ class BathTubController < ApplicationController
     redirect_to bathtub_path
   end
 
+  def checkout
+  end
+
   protected
 
   def update_bathtub

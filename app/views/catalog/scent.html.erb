@@ -9,6 +9,33 @@
   <%= select_tag :product_id, options_from_collection_for_select(@scent.products, :id, :name) %>
   <label for="quantity">How many do you want?</label>
   <%= text_field_tag :quantity, 1, :class => "span1" %>
+  <br/>
+  <% @scent.products.each do |p| %>
+    <div id="<%= p.id %>-upgrade-container" class="upgrade-containers">
+    <label>Choose an upgrade</label>
+    <% p.upgrades.each do |u| %>
+      <label for="<%= u.id %>">
+      <%= check_box_tag "upgrades[]", u.id, false, :id => u.id %> 
+      <%= u.description %>
+    <% end %>
+    </div>
+  <% end %>
   <br/><br/>
   <%= submit_tag "Add to Bathtub", :class => "btn btn-success" %>
 <% end %>
+
+<script type="text/javascript">
+  $(function() {
+
+    $('#product_id').change(function() {
+      var id = $(this).val();
+      $('div.upgrade-containers').hide();
+      $('div#' + id + '-upgrade-container').show();
+    });
+
+    $('div.upgrade-containers').hide();
+    var id = $('#product_id').val();
+    $('div#' + id + '-upgrade-container').show();
+    
+  });
+</script>
