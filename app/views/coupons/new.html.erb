@@ -1,0 +1,47 @@
+<div class="create-coupon">
+<fieldset>
+<legend>Add a new coupon</legend>
+
+<%= form_tag coupons_path, :class => "form-horizontal", :method => :post do %>
+  <div class="control-group">
+    <label class="control-label" for="key">Key</label>
+    <div class="controls">
+      <input class="span1" type="text" id="key" name="key" value="<%= @key %>" readonly="readonly">
+    </div>
+    <br/>
+    <label class="control-label" for="name">Description</label>
+    <div class="controls">
+      <input class="span4" type="text" id="description" name="description" value="">
+    </div>
+    <br/>
+    <label class="control-label" for="name">Amount Off</label>
+    <div class="controls">
+      <select class="span1" id="type" name="type">
+        <option value="dollars">$</option>
+        <option value="percent">%</option>
+      </select>
+      <input class="span1" type="text" id="amount" name="amount" value="">
+    </div>
+    <br/>
+    <label class="control-label" for="name">Duration</label>
+    <div class="controls">
+      <div class="input-prepend">
+          <span class="add-on"><i class="icon-calendar"></i></span><input type="text" name="daterange" id="daterange" />
+      </div>
+    </div>
+  </div>
+  <div class="control-group">
+  <div class="controls">
+    <%= link_to "Cancel", coupons_path %>&nbsp;&nbsp;<%= submit_tag "Add it", :class => "btn btn-success" %>
+  </div>
+  </div>
+<% end %>
+
+</fieldset>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('input[name="daterange"]').daterangepicker();
+});
+</script>

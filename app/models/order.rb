@@ -5,6 +5,15 @@ class Order
   field :status, :type => Symbol
 
   field :email
+
+  field :name
+  field :street
+  field :city
+  field :state
+  field :zip
+
+  field :phone
+
   field :notes
 
   field :tracking

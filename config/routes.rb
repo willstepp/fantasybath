@@ -1,10 +1,13 @@
 Fantasybath::Application.routes.draw do
+  devise_for :users
+
   get "coupons/index"
 
 	scope '/workshop' do
         match '/' => 'workshop#index', :via => :get, :as => :workshop
         resources :scents
         resources :products
+        resources :coupons
 
         match '/products/:id/images' => 'products#images', :via => :get, :as => :product_images
         match '/products/:id/upload_image' => 'products#upload_image', :via => :post, :as => :upload_image
@@ -34,8 +37,6 @@ Fantasybath::Application.routes.draw do
         match '/edit_scent_category/:id' => 'scents#edit_scent_category', :via => :get, :as => :edit_scent_category
         match '/update_scent_category' => 'scents#update_scent_category', :via => :put, :as => :update_scent_category
         match '/destroy_scent_category/:id' => 'scents#destroy_scent_category', :via => :delete, :as => :destroy_scent_category
-
-        match '/coupons' => 'coupons#index', :via => :get, :as => :coupons
 	end
     
     match '/checkout' => 'bath_tub#checkout', :via => :get, :as => :checkout

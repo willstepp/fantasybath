@@ -3,7 +3,7 @@ class Upgrade
   include Mongoid::Timestamps
 
   field :description
-  field :amount, :type => Float, :default => 0.0
+  field :amount, :type => Integer, :default => 0
 
   belongs_to :product
 end

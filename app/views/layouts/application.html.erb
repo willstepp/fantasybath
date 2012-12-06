@@ -3,8 +3,11 @@
 <head>
   <title>Fantasy Bath</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
-
   <%= javascript_include_tag "application" %>
+
+  <script type="text/javascript" src="date.js"></script>
+  <script type="text/javascript" src="daterangepicker.js"></script>
+  <link rel="stylesheet" type="text/css" href="daterangepicker.css" />
 
   <script type="text/javascript" src="https://js.stripe.com/v1/"></script>
   <script type="text/javascript">
@@ -23,7 +26,8 @@
     </ul>
   </div>
 </div>
-
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
 <div class="container">
   <%= yield %>
 </div>

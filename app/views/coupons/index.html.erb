@@ -1,2 +1,26 @@
-<h1>Coupons#index</h1>
-<p>Find me in app/views/coupons/index.html.erb</p>
+<h1>Coupons</h1>
+<%= link_to "Create a new coupon", new_coupon_path, :class => "btn btn-success btn-small" %>
+<br/><br/>
+<table class="table">
+  <tr>
+    <th>Key</th>
+    <th>Type</th>
+    <th>Amount</th>
+    <th>Start</th>
+    <th>End</th>
+    <th>Actions</th>
+  </tr>
+  <% @coupons.each do |c| %>
+    <tr>
+      <td><%= c.key %></td>
+      <td><%= c.type.to_s %></td>
+      <td><%= c.amount %></td>
+      <td><%= c.start %></td>
+      <td><%= c.end %></td>
+      <td>
+        <%= link_to 'Edit', edit_coupon_path(c) %>&nbsp;
+        <%= link_to 'Delete', coupon_path(c), :method => :delete, :style => "color:red", :data => { :confirm => 'Are you sure?' } %>
+      </td>
+    </tr>
+  <% end %>
+</table>
