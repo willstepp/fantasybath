@@ -37,9 +37,40 @@ class BathTubController < ApplicationController
   end
 
   def checkout
+    @step = params[:step].to_sym
+    @shipping_methods = ShippingMethod.all
+  end
+
+  def update_checkout
+    @bathtub.order.email = params[:email]
+
+    @bathtub.order.billing_name = params[:billing_name]
+    @bathtub.order.billing_address = params[:billing_address]
+    @bathtub.order.billing_city = params[:billing_city]
+    @bathtub.order.billing_state = params[:billing_state]
+    @bathtub.order.billing_zip = params[:billing_zip]
+
+    @bathtub.order.ship_to_billing_address = params[:shipping_checkbox].nil? ? false : true
+    stb = @bathtub.order.ship_to_billing_address ? "billing" : "shipping"
+    
+    @bathtub.order.shipping_name = params["#{stb}_name".to_sym]
+    @bathtub.order.shipping_address = params["#{stb}_address".to_sym]
+    @bathtub.order.shipping_city = params["#{stb}_city".to_sym]
+    @bathtub.order.shipping_state = params["#{stb}_state".to_sym]
+    @bathtub.order.shipping_zip = params["#{stb}_zip".to_sym]
+
+    @bathtub.order.save
+    if @bathtub.order.valid?
+      redirect_to checkout_path(:two)
+    else
+      flash[:errors] = @bathtub.order.errors.full_messages
+      redirect_to checkout_path(:one)
+    end
   end
 
   def submit_payment
+    raise params.to_yaml
+
     Stripe.api_key = "sk_QrS2JAAYDGLvUrXxVKBfiz0uy4phC"
 
     token = params[:stripeToken]
@@ -52,6 +83,10 @@ class BathTubController < ApplicationController
     )
 
     raise charge.to_yaml
+  end
+
+  def get_coupon_info
+    coupon = Coupon.where(:key => params[:key]).first
   end
 
   protected

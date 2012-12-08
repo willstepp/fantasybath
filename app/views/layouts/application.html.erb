@@ -26,11 +26,29 @@
     </ul>
   </div>
 </div>
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+<% flash.each do |name, msg| %>
+  <% if msg.kind_of?(Array) %>
+    <div id="app_alert" class="alert fade in alert-<%= "#{name}" %>">
+      <a id="app_alert_close" class="close" data-dismiss="alert">×</a>
+      <ul style="margin:0px;padding:0px;list-style-type:none">
+      <% msg.each do |m| %>
+        <li><%= m %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% else %>
+    <div id="app_alert" class="alert fade in alert-<%= "#{name}" %>"><%= msg %><a class="close" data-dismiss="alert">×</a></div>
+  <% end %>
+<% end %>
 <div class="container">
   <%= yield %>
 </div>
 
 </body>
 </html>
+<script type="text/javascript">
+    //alert fade out after 15 seconds
+    $('#app_alert').delay(15000).fadeOut(250, function () {
+      $('#app_alert').remove();
+    });
+</script>

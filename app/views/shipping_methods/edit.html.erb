@@ -1,0 +1,29 @@
+<div class="create-shipping-method">
+<fieldset>
+<legend>Edit shipping method</legend>
+
+<%= form_tag shipping_method_path, :class => "form-horizontal", :method => :put do %>
+  <%= hidden_field_tag :id, @shipping_method.id %>
+  <div class="control-group">
+    <label class="control-label" for="name">Description</label>
+    <div class="controls">
+      <input class="span4" type="text" id="description" name="description" value="<%= @shipping_method.description %>" />
+    </div>
+    <br/>
+    <label class="control-label" for="name">Amount</label>
+    <div class="controls">
+      <div class="input-prepend">
+        <span class="add-on">$</span>
+        <input class="span1" type="text" id="amount" name="amount" value="<%= @shipping_method.amount %>" />
+      </div>
+    </div>
+  </div>
+  <div class="control-group">
+  <div class="controls">
+    <%= link_to "Cancel", shipping_methods_path %>&nbsp;&nbsp;<%= submit_tag "Update it", :class => "btn btn-success" %>
+  </div>
+  </div>
+<% end %>
+
+</fieldset>
+</div>

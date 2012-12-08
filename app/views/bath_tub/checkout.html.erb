@@ -1,26 +1,113 @@
 <%= content_for :bathtub, "active" %>
 
-<h3>Checkout</h3>
+<% if @step == :one %>
+<h3>Step One</h3>
+<h5>Order ID: <%= @bathtub.order.id %></h5>
+<br/>
+<form action="<%= update_checkout_path(:one) %>" method="post">
+  <fieldset>
+    <legend>Email</legend>
+    <input type="text" name="email" class="span3" value="<%= @bathtub.order.email %>"/>
+  </fieldset>
+  <br/>
+  <fieldset>
+    <legend>Billing Address</legend>
+    <div>
+      <label>Name</label>
+      <input type="text" name="billing_name" class="span3" value="<%= @bathtub.order.billing_name %>" />
+    </div>
+    <div>
+      <label>Address</label>
+      <input type="text" name="billing_address" class="span3" value="<%= @bathtub.order.billing_address %>" />
+    </div>
+    <div>
+      <label>City</label>
+      <input type="text" name="billing_city" class="span3" value="<%= @bathtub.order.billing_city %>" />
+    </div>
+    <div>
+      <label>State</label>
+      <input type="text" name="billing_state" class="span3" value="<%= @bathtub.order.billing_state %>" />
+    </div>
+    <div>
+      <label>Zipcode</label>
+      <input type="text" name="billing_zip" class="span3" value="<%= @bathtub.order.billing_zip %>" />
+    </div>
+  </fieldset>
+  <br/>
+  <fieldset>
+    <legend>Shipping Address</legend>
+    <label class="checkbox"><input name="shipping_checkbox" id="shipping-checkbox" type="checkbox" <%= @bathtub.order.ship_to_billing_address == true ? "checked='checked'" : "" %> /> Use my billing address</label>
+    <br/>
+    <div id="shipping-container">
+      <div>
+        <label>Name</label>
+        <input type="text" id="shipping_name" name="shipping_name" class="span3" value="<%= @bathtub.order.shipping_name %>"/>
+      </div>
+      <div>
+        <label>Address</label>
+        <input type="text" id="shipping_address" name="shipping_address" class="span3" value="<%= @bathtub.order.shipping_address %>"/>
+      </div>
+      <div>
+        <label>City</label>
+        <input type="text" id="shipping_city" name="shipping_city" class="span3" value="<%= @bathtub.order.shipping_city %>" />
+      </div>
+      <div>
+        <label>State</label>
+        <input type="text" id="shipping_state" name="shipping_state" class="span3" value="<%= @bathtub.order.shipping_state %>" />
+      </div>
+      <div>
+        <label>Zipcode</label>
+        <input type="text" id="shipping_zip" name="shipping_zip" class="span3" value="<%= @bathtub.order.shipping_zip %>" />
+      </div>
+    </div>
+  </fieldset>
+  <br/><br/>
+  <button type="submit" class="btn btn-primary">Continue to next step</button>
+  &nbsp;or&nbsp;<%= link_to "return to catalog", root_path %>
+</form>
+
+<% end %>
+
+<% if @step == :two %>
+
+<h3>Step Two</h3>
 <h5>Order ID: <%= @bathtub.order.id %></h5>
 <br/>
 <form action="<%= submit_payment_path %>" method="post" id="payment-form">
-  <div class="form-row">
-    <label>Card Number</label>
-    <input type="text" size="20" autocomplete="off" class="card-number"/>
-  </div>
-  <div class="form-row">
-    <label>CVC</label>
-    <input type="text" size="4" autocomplete="off" class="card-cvc"/>
-  </div>
-  <div class="form-row">
-    <label>Expiration (MM/YYYY)</label>
-    <input type="text" size="2" class="card-expiry-month span1"/>
-    <span> / </span>
-    <input type="text" size="4" class="card-expiry-year span1"/>
-  </div>
+  <fieldset>
+    <legend>Coupon</legend>
+    <input type="text" maxlength="6" id="coupon" name="coupon" class="span1" value="<%= @bathtub.order.coupon.nil? ? "" :  @bathtub.order.coupon.key %>" />
+  </fieldset>
   <br/>
-  <button type="submit" class="submit-button btn btn-primary">Submit Payment</button>
+  <fieldset>
+    <legend>Shipping Method</legend>
+  </fieldset>
+  <br/>
+  <fieldset>
+    <legend>Payment Info</legend>
+    <div class="form-row">
+      <label>Card Number</label>
+      <input type="text" size="20" autocomplete="off" class="card-number"/>
+    </div>
+    <div class="form-row">
+      <label>Expiration (MM/YYYY)</label>
+      <input type="text" size="2" class="card-expiry-month span1"/>
+      <span> / </span>
+      <input type="text" size="4" class="card-expiry-year span1"/>
+    </div>
+     <div class="form-row">
+      <label>CVC</label>
+      <input type="text" size="4" autocomplete="off" class="card-cvc span1"/>
+    </div>
+  </fieldset>
+  <br/><br/>
+  <label class="checkbox"><input name="newsletter_checkbox" id="newsletter_checkbox" type="checkbox" <%= @bathtub.order.send_newsletter == true ? "checked='checked'" : "" %> /> I want to receive occassional emails about new products, promotions, and other news.</label>
+  <br/><br/>
+  <button type="submit" class="submit-button btn btn-primary">Complete my purchase</button>
+  &nbsp;or&nbsp;<%= link_to "cancel, and return to catalog", root_path %>
 </form>
+
+<% end %>
 
 <script type="text/javascript">
 
@@ -41,7 +128,32 @@
     }
   }
 
+  function toggleShippingForm(clearForm) {
+    var checked = $('#shipping-checkbox').attr('checked') === 'checked';
+    if (checked) {
+      $('#shipping-container').hide();
+    }
+    else {
+      if (clearForm)
+      {
+        $('#shipping_name').val('');
+        $('#shipping_address').val('');
+        $('#shipping_city').val('');
+        $('#shipping_state').val('');
+        $('#shipping_zip').val('');
+      }
+
+      $('#shipping-container').show();
+    }
+  }
+
   $(document).ready(function() {
+
+    toggleShippingForm(false);
+
+    $("#shipping-checkbox").change(function() {
+      toggleShippingForm(true);
+    });
 
     $("#payment-form").submit(function(event) {
 
