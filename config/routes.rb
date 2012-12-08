@@ -7,6 +7,7 @@ Fantasybath::Application.routes.draw do
         resources :products
         resources :coupons
         resources :shipping_methods
+        resources :orders
 
         match '/products/:id/images' => 'products#images', :via => :get, :as => :product_images
         match '/products/:id/upload_image' => 'products#upload_image', :via => :post, :as => :upload_image
@@ -42,6 +43,11 @@ Fantasybath::Application.routes.draw do
     match '/update_checkout/:step' => 'bath_tub#update_checkout', :via => :post, :as => :update_checkout
     
     match '/submit_payment' => 'bath_tub#submit_payment', :via => :post, :as => :submit_payment
+
+    match '/check_order_status' => 'bath_tub#check_order_status', :via => :get, :as => :check_order_status
+    match '/view_order_status/:order_id' => 'bath_tub#view_order_status', :via => :get, :as => :view_order_status
+
+    match '/thank_you' => 'bath_tub#thank_you', :via => :get, :as => :thank_you
 
     match '/get_coupon_info/:key' => 'bath_tub#get_coupon_info', :via => :get, :as => :get_coupon_info
     

@@ -1,0 +1,11 @@
+<div>
+  <p>
+    Thanks, we have received your payment and will begin processing your order immediately. You will receive another email when the order has shipped.
+  </p>
+  <p>
+    <%= link_to "Check the status of my order", File.join('http://', APP_DOMAIN, view_order_status_path(@order_id)) %>
+  </p>
+  <p>
+    - Fantasy Bath
+  </p>
+</div>

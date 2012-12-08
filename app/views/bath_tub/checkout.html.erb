@@ -81,6 +81,13 @@
   <br/>
   <fieldset>
     <legend>Shipping Method</legend>
+    <label>Please select how you want to receive your items</label>
+    <select class="span2" id="shipping_method" name="shipping_method">
+      <% sm_selected = @bathtub.order.shipping_method.nil? ? @shipping_methods.first.id : @bathtub.order.shipping_method.id %>
+      <% @shipping_methods.each do |sm| %>
+        <option value="<%= sm.id %>" <%= sm.id == sm_selected ? "selected" : "" %> ><%= "#{sm.description} -  #{sm.amount}" %></option>
+      <% end %>
+    </select>
   </fieldset>
   <br/>
   <fieldset>

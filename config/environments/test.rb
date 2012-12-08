@@ -34,4 +34,5 @@ Fantasybath::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+  APP_DOMAIN = 'localhost:3000'
 end

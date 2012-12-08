@@ -69,20 +69,51 @@ class BathTubController < ApplicationController
   end
 
   def submit_payment
-    raise params.to_yaml
+    c = Coupon.where(:key => params[:coupon]).first
+    if c
+      @bathtub.order.coupon = c
+    end
+    sm = ShippingMethod.find(params[:shipping_method])
+    if sm
+      @bathtub.order.shipping_method = sm
+    end
+    @bathtub.order.send_newsletter = params[:newsletter_checkbox].nil? ? false : true
+    @bathtub.order.token = params[:stripeToken]
+    @bathtub.save
 
     Stripe.api_key = "sk_QrS2JAAYDGLvUrXxVKBfiz0uy4phC"
-
-    token = params[:stripeToken]
-
     charge = Stripe::Charge.create(
       :amount => @bathtub.order.total,
       :currency => "usd",
-      :card => token,
-      :description => "payinguser@example.com"
+      :card => @bathtub.order.token,
+      :description => @bathtub.order.id
     )
 
-    raise charge.to_yaml
+    success = charge.paid
+    if success
+      AppMailer.order_processed(@bathtub.order.email, @bathtub.order.billing_name, @bathtub.order.id).deliver
+
+      @bathtub.order.status = :processed
+      @bathtub.order.save
+
+      @bathtub.destroy
+
+      redirect_to thank_you_path(:order => @bathtub.order.id)
+    else
+      flash[:error] = charge.failure_message
+      redirect_to checkout_path(:two)
+    end
+  end
+
+  def thank_you
+    @order_id = params[:order]
+  end
+
+  def check_order_status
+  end
+
+  def view_order_status
+    
   end
 
   def get_coupon_info
@@ -93,7 +124,7 @@ class BathTubController < ApplicationController
 
   def update_bathtub
     if @bathtub.nil?
-      order = Order.create
+      order = Order.create(:status => :bathtub)
       @bathtub = BathTub.create(:order_id => order.id)
     end
     cookies[:bathtub] = { :value => @bathtub.id.to_s, :expires => 1.month.from_now }

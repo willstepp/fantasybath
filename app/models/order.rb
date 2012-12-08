@@ -34,5 +34,6 @@ class Order
 
   def total
     #sum up order_items, upgrades, tax?
+    100
   end
 end

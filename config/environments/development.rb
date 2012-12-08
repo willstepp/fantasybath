@@ -34,4 +34,5 @@ Fantasybath::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  APP_DOMAIN = 'localhost:3000'
 end
