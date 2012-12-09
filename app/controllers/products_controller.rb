@@ -48,7 +48,8 @@ class ProductsController < ApplicationController
         s = Scent.find(scent)
         @product.scents << s
         if !@prices[i].nil?
-          @product.prices << Price.create(:amount => @prices[i].to_f, :scent_id => s.id, :product_id => @product.id)
+          pennies = Price.dollars_to_pennies(@prices[i].to_f)
+          @product.prices << Price.create(:amount => pennies, :scent_id => s.id, :product_id => @product.id)
         end
       end
       @product.save
@@ -78,7 +79,8 @@ class ProductsController < ApplicationController
         s = Scent.find(scent)
         @product.scents << s
         if !@prices[i].nil?
-          @product.prices << Price.create(:amount => @prices[i].to_f, :scent_id => s.id, :product_id => @product.id)
+          pennies = Price.dollars_to_pennies(@prices[i].to_f)
+          @product.prices << Price.create(:amount => pennies, :scent_id => s.id, :product_id => @product.id)
         end
       end
     @product.save

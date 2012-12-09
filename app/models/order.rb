@@ -27,13 +27,28 @@ class Order
   field :token
 
   has_many :order_items, :dependent => :destroy
-  has_one :payment, :dependent => :destroy
 
   belongs_to :coupon
   belongs_to :shipping_method
 
   def total
-    #sum up order_items, upgrades, tax?
-    100
+    total = 0
+    self.order_items.each do |oi|
+      p = Price.any_of({:product_id => oi.product.id}, {:scent_id => oi.scent.id}).first
+      if p
+        total += p.amount
+      end
+      oi.upgrades.each do |u|
+        total += u.amount
+      end
+    end
+    if !self.coupon.nil?
+     if self.coupon.type == :dollars
+      total -= self.coupon.amount
+     end
+     if self.coupon.type == :percent
+      #calculate percentage off
+     end
+    end
   end
 end

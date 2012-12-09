@@ -31,7 +31,7 @@
     <%= check_box_tag "scents[]", s.id, @product.scents.where(:id => s.id).exists? ? true : false, :id => s.name, :class => "scent-cb" %> 
     <%= s.name %>
     </label>
-    <%= text_field_tag "prices[]", @product.prices.where(:scent_id => s.id).exists? ? @product.prices.where(:scent_id => s.id).first.amount : "", :class => "#{s.id}-price" %>
+    <%= text_field_tag "prices[]", @product.prices.where(:scent_id => s.id).exists? ? Price.pennies_to_dollars(@product.prices.where(:scent_id => s.id).first.amount) : "", :class => "#{s.id}-price" %>
     <br/>
   <% end %>
 
