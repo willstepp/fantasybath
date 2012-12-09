@@ -3,7 +3,6 @@
 
 <table>
   <tr>
-    <th></th>
     <th>Name</th>
     <th>Description</th>
     <th>Actions</th>
@@ -11,11 +10,6 @@
 
 <% @products.each do |product| %>
   <tr>
-    <td>
-      <% if !product.images.first.nil? %>
-        <%= image_tag product.images.first.url, :style => "width:100px;" %>
-      <% end %>
-    </td>
     <td>
       <%= product.name %>
     </td>

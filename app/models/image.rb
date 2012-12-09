@@ -10,7 +10,7 @@ class Image
   belongs_to :scent
 
   def url
-    "#{ENV['S3_URL']}/#{ENV['S3_BUCKET']}/#{self.type.to_s}/#{self.type == :product ? self.product.id : self.scent.id}/#{self.filename}"
+    "#{ENV['S3_URL']}/#{ENV['S3_BUCKET']}/#{self.type.to_s}/#{self._id}/#{self.filename}"
   end
 
   before_destroy :delete_image_from_s3
@@ -18,7 +18,7 @@ class Image
   protected
 
   def delete_image_from_s3
-    filepath = AWSHelper.generate_path_for(self.type, self.type == :product ? self.product : self.scent, self.filename)
+    filepath = AWSHelper.generate_path_for(self.type, self, self.filename)
     AWSHelper.delete_from_s3(filepath)
   end
 end

@@ -12,6 +12,7 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
+    @product_image = Image.all_of({:product_id => params[:id]}, {:type => :product}).first
 
     respond_to do |format|
       format.html # show.html.erb
@@ -33,6 +34,7 @@ class ProductsController < ApplicationController
 
   def edit
     @product = Product.find(params[:id])
+    @product_image = Image.all_of({:product_id => params[:id]}, {:type => :product}).first
     @product_types = ProductType.all
     @scents = Scent.all
   end
@@ -109,8 +111,9 @@ class ProductsController < ApplicationController
 
   #Images
 
-  def images
+  def image
     @product = Product.find(params[:id])
+    @product_image = Image.all_of({:product_id => params[:id]}, {:type => :product}).first
   end
 
   def upload_image
@@ -121,7 +124,7 @@ class ProductsController < ApplicationController
         image = Image.find(image_id)
 
         #first remove old file
-        filepath = AWSHelper.generate_path_for(:product, @product, image.filename)
+        filepath = AWSHelper.generate_path_for(:product, image, image.filename)
         AWSHelper.delete_from_s3(filepath)
 
         image.filename = params[:image].original_filename
@@ -131,23 +134,23 @@ class ProductsController < ApplicationController
         @product.save
       end
 
-      filepath = AWSHelper.generate_path_for(:product, @product, params[:image].original_filename)
+      filepath = AWSHelper.generate_path_for(:product, @product.images.last, params[:image].original_filename)
       AWSHelper.upload_to_s3(params[:image], filepath)
     end
     
-    redirect_to product_images_path @product
+    redirect_to product_image_path @product
   end
 
   def delete_image
     @product = Product.find(params[:id])
     @image = Image.find(params[:image_id])
 
-    filepath = AWSHelper.generate_path_for(:product, @product, @image.filename)
+    filepath = AWSHelper.generate_path_for(:product, @image, @image.filename)
     AWSHelper.delete_from_s3(filepath)
 
     @image.destroy
 
-    redirect_to product_images_path @product
+    redirect_to product_image_path @product
   end
 
   #Upgrades

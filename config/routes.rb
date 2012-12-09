@@ -11,13 +11,17 @@ Fantasybath::Application.routes.draw do
 
         match '/mark_order_shipped' => 'orders#mark_order_shipped', :via => :post, :as => :mark_order_shipped
 
-        match '/products/:id/images' => 'products#images', :via => :get, :as => :product_images
+        match '/products/:id/image' => 'products#image', :via => :get, :as => :product_image
         match '/products/:id/upload_image' => 'products#upload_image', :via => :post, :as => :upload_image
         match '/products/:id/delete_image' => 'products#delete_image', :via => :delete, :as => :delete_image
 
         match '/scents/:id/icon' => 'scents#icon', :via => :get, :as => :scent_icon
         match '/scents/:id/upload_icon' => 'scents#upload_icon', :via => :post, :as => :upload_icon
         match '/scents/:id/delete_icon' => 'scents#delete_icon', :via => :delete, :as => :delete_icon
+
+        match '/images/:product_id/:scent_id/detail' => 'images#detail', :via => :get, :as => :image_detail
+        match '/images/:product_id/:scent_id/upload_detail' => 'images#upload_detail', :via => :post, :as => :upload_image_detail
+        match '/images/:product_id/:scent_id/delete_detail' => 'images#delete_detail', :via => :delete, :as => :delete_image_detail
 
         match '/products/:product_id/upgrades' => 'products#upgrades', :via => :get, :as => :upgrades
         match '/products/:product_id/upgrades/new' => 'products#new_upgrade', :via => :get, :as => :new_upgrade

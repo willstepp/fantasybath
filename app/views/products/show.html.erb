@@ -5,9 +5,9 @@
 <%= link_to 'Back', products_path %>
 </p>
 <p>
- <% if !@product.images.first.nil? %>
-    <%= image_tag @product.images.first.url, :style => "width:200px" %>
- <% end %>
+<% if !@product_image.nil? %>
+  <%= image_tag @product_image.url, :style => "width:100px;" %>
+<% end %>
 </p>
 <p>
   <%= @product.description %>

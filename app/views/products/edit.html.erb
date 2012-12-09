@@ -1,10 +1,10 @@
 <h1>Edit product</h1>
 <p>
-<% if !@product.images.first.nil? %>
-  <%= image_tag@product.images.first.url, :style => "width:100px;" %>
+<% if !@product_image.nil? %>
+  <%= image_tag @product_image.url, :style => "width:100px;" %>
 <% end %>
 <br/>
-<%= link_to "Edit images", product_images_path(@product) %>
+<%= link_to "Edit image", product_image_path(@product) %>
 </p>
 <%= link_to "Edit upgrades", upgrades_path(@product) %>
 <% if @product.upgrades.count > 0 %>

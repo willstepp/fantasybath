@@ -1,0 +1,48 @@
+<% if @return == :product %>
+  <%= link_to @product.name, edit_product_path(@product), :class => "btn btn-small" %>
+<% end %>
+<% if @return == :scent %>
+  <%= link_to @scent.name, edit_scent_path(@scent), :class => "btn btn-small" %>
+<% end %>
+
+<h3>Image Detail</h3>
+
+<p>
+  Product: <%= @product.id %>
+</p>
+<p>
+  Scent: <%= @scent.id %>
+</p>
+
+<% if @image %>
+
+  <%= image_tag @image.url %>
+
+  <%= form_for Image.new, :url => upload_image_detail_path, :html => { :multipart => true } do %>
+    <%= hidden_field_tag :product_id, @product.id %>
+    <%= hidden_field_tag :scent_id, @scent.id %>
+    <%= hidden_field_tag :image_id, @image.id %>
+    <%= hidden_field_tag :r, @return.to_s %>
+    <%= file_field_tag :image %>
+    <br/><br/>
+    <%= submit_tag "Update image", :class => "btn" %>
+  <% end %>
+
+  <%= form_tag delete_image_detail_path, :method => :delete do %>
+    <%= hidden_field_tag :image_id, @image.id %>
+    <%= hidden_field_tag :r, @return.to_s %>
+    <%= submit_tag "Delete", :class => "btn btn-small btn-danger", :confirm => "Are you sure you want to delete this image?" %>
+  <% end %>
+
+<% else %>
+
+<%= form_for Image.new, :url => upload_image_detail_path, :html => { :multipart => true } do %>
+  <%= hidden_field_tag :product_id, @product.id %>
+  <%= hidden_field_tag :scent_id, @scent.id %>
+  <%= hidden_field_tag :r, @return.to_s %>
+  <%= file_field_tag :image %>
+  <br/><br/>
+  <%= submit_tag "Upload new image", :class => "btn" %>
+<% end %>
+
+<% end %>

@@ -12,6 +12,7 @@ class ScentsController < ApplicationController
 
   def show
     @scent = Scent.find(params[:id])
+    @scent_image = Image.all_of({:scent_id => params[:id]}, {:type => :scent}).first
 
     respond_to do |format|
       format.html # show.html.erb
@@ -32,6 +33,8 @@ class ScentsController < ApplicationController
 
   def edit
     @scent = Scent.find(params[:id])
+    @scent_image = Image.all_of({:scent_id => params[:id]}, {:type => :scent}).first
+
     @products = Product.all
     @scent_categories = ScentCategory.all
   end
@@ -126,6 +129,7 @@ class ScentsController < ApplicationController
 
   def icon
     @scent = Scent.find(params[:id])
+    @scent_image = Image.all_of({:scent_id => params[:id]}, {:type => :scent}).first
   end
 
   def upload_icon
@@ -136,7 +140,7 @@ class ScentsController < ApplicationController
         image = Image.find(image_id)
 
         #first remove old file
-        filepath = AWSHelper.generate_path_for(:scent, @scent, image.filename)
+        filepath = AWSHelper.generate_path_for(:scent, image, image.filename)
         AWSHelper.delete_from_s3(filepath)
 
         image.filename = params[:image].original_filename
@@ -146,7 +150,7 @@ class ScentsController < ApplicationController
         @scent.save
       end
 
-      filepath = AWSHelper.generate_path_for(:scent, @scent, params[:image].original_filename)
+      filepath = AWSHelper.generate_path_for(:scent, @scent.images.last, params[:image].original_filename)
       AWSHelper.upload_to_s3(params[:image], filepath)
     end
     
@@ -157,7 +161,7 @@ class ScentsController < ApplicationController
     @scent = Scent.find(params[:id])
     @image = Image.find(params[:image_id])
 
-    filepath = AWSHelper.generate_path_for(:scent, @scent, @image.filename)
+    filepath = AWSHelper.generate_path_for(:scent, @image, @image.filename)
     AWSHelper.delete_from_s3(filepath)
 
     @image.destroy

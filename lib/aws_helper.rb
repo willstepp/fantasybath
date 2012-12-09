@@ -40,6 +40,6 @@ module AWSHelper
   end
   
   def self.generate_path_for(type, owner, filename)
-    "#{type.to_s}/#{owner.id}/#{filename}"
+    "#{type.to_s}/#{owner._id}/#{filename}"
   end
 end

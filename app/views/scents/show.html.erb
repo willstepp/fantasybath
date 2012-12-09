@@ -1,9 +1,9 @@
 <p id="notice"><%= notice %></p>
 <h3><%= @scent.name %></h3>
 <p>
- <% if !@scent.images.first.nil? %>
-    <%= image_tag @scent.images.first.url, :style => "width:200px" %>
- <% end %>
+ <% if !@scent_image.nil? %>
+  <%= image_tag @scent_image.url, :style => "width:100px;" %>
+<% end %>
 </p>
 <p>
   <%= @scent.description %>
