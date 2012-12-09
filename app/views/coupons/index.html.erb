@@ -14,7 +14,7 @@
     <tr>
       <td><%= c.key %></td>
       <td><%= c.type.to_s %></td>
-      <td><%= c.amount %></td>
+      <td><%= Price.pennies_to_dollars(c.amount) %></td>
       <td><%= c.start %></td>
       <td><%= c.end %></td>
       <td>

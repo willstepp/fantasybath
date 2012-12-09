@@ -10,7 +10,7 @@
   <% @shipping_methods.each do |sm| %>
     <tr>
       <td><%= sm.description %></td>
-      <td><%= sm.amount %></td>
+      <td><%= number_to_currency(Price.pennies_to_dollars(sm.amount)) %></td>
       <td>
         <%= link_to 'Edit', edit_shipping_method_path(sm) %>&nbsp;
         <%= link_to 'Delete', shipping_method_path(sm), :method => :delete, :style => "color:red", :data => { :confirm => 'Are you sure?' } %>

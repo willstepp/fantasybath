@@ -51,9 +51,6 @@ class Order
      if self.coupon.type == :dollars
       total -= self.coupon.amount
      end
-     if self.coupon.type == :percent
-      #calculate percentage off
-     end
     end
 
     #shipping

@@ -19,9 +19,9 @@
     <div class="controls">
       <select class="span1" id="type" name="type">
         <option value="dollars" <%= @coupon.type == :dollars ? "selected" : "" %> >$</option>
-        <option value="percent" <%= @coupon.type == :percent ? "selected" : "" %> >%</option>
+        <!--<option value="percent" <%= @coupon.type == :percent ? "selected" : "" %> >%</option>-->
       </select>
-      <input class="span1" type="text" id="amount" name="amount" value="<%= @coupon.amount %>">
+      <input class="span1" type="text" id="amount" name="amount" value="<%= Price.pennies_to_dollars(@coupon.amount) %>">
     </div>
     <br/>
     <label class="control-label" for="name">Duration</label>

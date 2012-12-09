@@ -9,7 +9,7 @@ class ShippingMethodsController < ApplicationController
   def create
     sm = ShippingMethod.new
     sm.description = params[:description]
-    sm.amount = params[:amount].to_i
+    sm.amount = Price.dollars_to_pennies(params[:amount].to_f)
 
     sm.save
 
@@ -29,7 +29,7 @@ class ShippingMethodsController < ApplicationController
   def update
     sm = ShippingMethod.find(params[:id])
     sm.description = params[:description]
-    sm.amount = params[:amount].to_i
+    sm.amount = Price.dollars_to_pennies(params[:amount].to_f)
 
     sm.save
 

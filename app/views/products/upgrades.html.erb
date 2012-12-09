@@ -6,7 +6,7 @@
 <% @product.upgrades.each do |u| %>
 <div>
   <p><%= u.description %></p>
-  <p><%= number_to_currency(u.amount) %></p>
+  <p><%= number_to_currency(Price.pennies_to_dollars(u.amount)) %></p>
   <span>
     <%= link_to "Edit", edit_upgrade_path(@product, u) %>
     &nbsp;

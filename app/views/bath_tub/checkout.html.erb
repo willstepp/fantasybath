@@ -85,7 +85,7 @@
     <select class="span2" id="shipping_method" name="shipping_method">
       <% sm_selected = @bathtub.order.shipping_method.nil? ? @shipping_methods.first.id : @bathtub.order.shipping_method.id %>
       <% @shipping_methods.each do |sm| %>
-        <option value="<%= sm.id %>" <%= sm.id == sm_selected ? "selected" : "" %> ><%= "#{sm.description} -  #{sm.amount}" %></option>
+        <option value="<%= sm.id %>" <%= sm.id == sm_selected ? "selected" : "" %> ><%= "#{sm.description} -  #{number_to_currency(Price.pennies_to_dollars(sm.amount))}" %></option>
       <% end %>
     </select>
   </fieldset>

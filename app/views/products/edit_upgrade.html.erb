@@ -14,7 +14,7 @@
     <div class="controls">
       <div class="input-prepend">
       <span class="add-on">$</span>
-      <input class="span1" type="text" id="amount" name="amount" value="<%= @upgrade.amount %>">
+      <input class="span1" type="text" id="amount" name="amount" value="<%= Price.pennies_to_dollars(@upgrade.amount) %>">
       </div>
     </div>
   </div>

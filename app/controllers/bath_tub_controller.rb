@@ -114,7 +114,12 @@ class BathTubController < ApplicationController
   end
 
   def view_order_status
-    redirect_to view_order_path(:id => params[:id], :email => params[:email])
+    if params[:id].blank? or params[:email].blank?
+      flash[:error] = "Please enter valid order id and email"
+      redirect_to order_status_path
+    else
+      redirect_to view_order_path(:id => params[:id], :email => params[:email])
+    end
   end
 
   def view_order

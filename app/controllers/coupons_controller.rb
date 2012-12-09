@@ -20,7 +20,7 @@ class CouponsController < ApplicationController
     c.key = params[:key]
     c.description = params[:description]
     c.type = params[:type].to_sym
-    c.amount = params[:amount].to_i
+    c.amount = Price.dollars_to_pennies(params[:amount].to_f)
 
     date = params[:daterange].split('-')
     s = DateTime.strptime(date[0].strip!, '%m/%d/%Y')
@@ -49,7 +49,7 @@ class CouponsController < ApplicationController
     c.key = params[:key]
     c.description = params[:description]
     c.type = params[:type].to_sym
-    c.amount = params[:amount].to_i
+    c.amount = Price.dollars_to_pennies(params[:amount].to_f)
 
     date = params[:daterange].split('-')
     s = DateTime.strptime(date[0].strip!, '%m/%d/%Y')

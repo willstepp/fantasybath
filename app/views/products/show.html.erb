@@ -18,10 +18,14 @@
 <fieldset>
   <legend>Available Scents</legend>
   <% @product.scents.each do |s| %>
-    <p><%= "#{s.name} : #{s.prices.where(:product_id => @product.id).exists? ? number_to_currency(s.prices.where(:product_id => @product.id).first.amount) : ""}" %></p>
+    <p><%= "#{s.name} : #{s.prices.where(:product_id => @product.id).exists? ? number_to_currency(Price.pennies_to_dollars(s.prices.where(:product_id => @product.id).first.amount)) : ""}" %></p>
   <% end %>
 </fieldset>
 <br/>
 <fieldset>
   <legend>Upgrades</legend>
+  <% @product.upgrades.each do |u| %>
+    <p><%= u.description %></p>
+    <p><%= number_to_currency(Price.pennies_to_dollars(u.amount)) %></p>
+  <% end %>
 </fieldset>

@@ -164,9 +164,14 @@ class ProductsController < ApplicationController
     p = Product.find(params[:product_id])
     u = Upgrade.create(params)
     if u.valid?
+
+      #convert price to pennies
+      u.amount = Price.dollars_to_pennies(params[:amount].to_f)
+      u.save
+
       p.upgrades << u
       p.save
-      redirect_to upgrades_path(p, u)
+      redirect_to upgrades_path(p)
     else
       flash[:errors] = u.errors.full_messages
       redirect_to new_upgrade_path(p)
@@ -182,6 +187,11 @@ class ProductsController < ApplicationController
     p = Product.find(params[:product_id])
     u = Upgrade.find(params[:id])
     if u.update_attributes(params)
+
+      #convert price to pennies
+      u.amount = Price.dollars_to_pennies(params[:amount].to_f)
+      u.save
+
       flash[:notice] = "Upgrade has been updated"
       redirect_to upgrades_path(p)
     else
