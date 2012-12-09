@@ -1,0 +1,59 @@
+<%= link_to "Orders", orders_path, :class => "btn btn-small" %>
+<br/>
+<h3>Order <span style="color:#666"><%= @order.id %></span></h3>
+<fieldset>
+  <legend>Items</legend>
+  <table class="table">
+     <tr>
+        <th style="border:none">Product</th>
+        <th style="border:none">Scent</th>
+        <th style="border:none">Size</th>
+        <th style="border:none">Quantity</th>
+      </tr>
+    <% @order.order_items.each do |oi| %>
+      <tr class="info">
+        <td><%= oi.product.name %></td>
+        <td><%= oi.scent.name %></td>
+        <td><%= "#{oi.product.size} #{oi.product.uom}" %></td>
+        <td><%= oi.quantity %></td>
+      </tr>
+      <% oi.upgrades.each do |u| %>
+      <tr>
+        <td colspan="4">
+          <%= "Upgrade: #{u.description}" %>
+        </td>
+      </tr>
+      <% end %>
+    <% end %>
+  </table>
+</fieldset>
+<br/>
+<fieldset>
+  <legend>Shipping</legend>
+  <address>
+    <strong><%= @order.shipping_name %></strong><br>
+    <%= @order.shipping_address %><br>
+    <%= "#{@order.shipping_city}, #{@order.shipping_state} #{@order.shipping_zip}" %><br>
+    <%= link_to @order.email, "mailto:#{@order.email}" %>
+  </address> 
+  <% if @order.status == :processed %>
+    <address>
+      <strong><%= @order.shipping_method.description %></strong><br>
+    </address>
+    <form action="<%= mark_order_shipped_path %>" method="post">
+      <input type="hidden" name="id" value="<%= @order.id %>"/>
+      <label for="tracking">Tracking Number</label>
+      <input type="text" class="span4" name="tracking"/>
+      <br/>
+      <input type="submit" class="btn btn-success" value="Mark order as shipped"/>
+    </form>
+  <% end %>
+
+  <% if @order.status == :shipped %>
+    <address>
+      <strong><%= @order.shipping_method.description %></strong><br>
+      <%= "Tracking : #{@order.tracking}" %><br>
+    </address>
+  <% end %>
+
+</fieldset>

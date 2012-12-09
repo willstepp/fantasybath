@@ -1,1 +1,35 @@
 <h3>Orders</h3>
+<h5>Ready to Ship</h5>
+<table class="table table-bordered">
+  <tr>
+    <th>Id</th>
+    <th>Email</th>
+    <th>Date</th>
+    <th>Status</th>
+  </tr>
+  <% @ready_orders.each do |ro| %>
+    <tr class="info">
+      <td><%= link_to ro.id, edit_order_path(ro) %></td>
+      <td><%= ro.email %></td>
+      <td><%= ro.updated_at.localtime %></td>
+      <td><%= ro.status %></td>
+    </tr>
+  <% end %>
+</table>
+<h5>Shipped</h5>
+<table class="table table-bordered">
+  <tr>
+    <th>Id</th>
+    <th>Email</th>
+    <th>Date</th>
+    <th>Status</th>
+  </tr>
+  <% @shipped_orders.each do |so| %>
+    <tr>
+      <td><%= link_to so.id, edit_order_path(so) %></td>
+      <td><%= so.email %></td>
+      <td><%= so.updated_at.localtime %></td>
+      <td><%= so.status %></td>
+    </tr>
+  <% end %>
+</table>

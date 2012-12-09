@@ -9,6 +9,8 @@ Fantasybath::Application.routes.draw do
         resources :shipping_methods
         resources :orders
 
+        match '/mark_order_shipped' => 'orders#mark_order_shipped', :via => :post, :as => :mark_order_shipped
+
         match '/products/:id/images' => 'products#images', :via => :get, :as => :product_images
         match '/products/:id/upload_image' => 'products#upload_image', :via => :post, :as => :upload_image
         match '/products/:id/delete_image' => 'products#delete_image', :via => :delete, :as => :delete_image
