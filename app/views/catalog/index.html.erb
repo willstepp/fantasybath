@@ -10,13 +10,13 @@
 <% if @category_type == :products %>
   <% @products.each do |p| %>
     <p>
-    <%= link_to p.name, catalog_product_path(p) %>
+    <%= link_to p.name, catalog_product_path(p.slug) %>
     </p>
   <% end %>
 <% else %>
   <% @scents.each do |s| %>
     <p>
-    <%= link_to s.name, catalog_scent_path(s) %>
+    <%= link_to s.name, catalog_scent_path(s.slug) %>
     </p>
   <% end %>
 <% end %>

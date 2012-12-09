@@ -10,10 +10,16 @@ class CatalogController < ApplicationController
   end
 
   def scent
-    @scent = Scent.find(params[:id])
+    @scent = Scent.where(:slug => params[:id]).first
+    if @scent.nil?
+      @scent = Scent.find(params[:id])
+    end
   end
 
   def product
-    @product = Product.find(params[:id])
+    @product = Product.where(:slug => params[:id]).first
+    if @product.nil?
+      @product = Product.find(params[:id])
+    end
   end
 end
