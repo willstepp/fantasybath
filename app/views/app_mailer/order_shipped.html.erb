@@ -1,0 +1,11 @@
+<div>
+  <p>
+    We are writing to let you know your order has shipped. Here is your tracking number: <strong><%= @order.tracking %></strong>. If you would like to review the details of this order, please click the link below:
+  </p>
+  <p>
+    <%= link_to "View details of my order", File.join('http://', APP_DOMAIN, view_order_path(:id => @order.id, :email => @order.email)) %>
+  </p>
+  <p>
+    - Fantasy Bath
+  </p>
+</div>

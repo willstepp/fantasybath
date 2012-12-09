@@ -1,0 +1,11 @@
+<%= content_for :order_status, "active" %>
+<h3>Order Status</h3>
+<form action="<%= view_order_status_path %>" method="post">
+  <label for="id">Order Id</label>
+  <input type="text" class="span4" name="id"/>
+  <br/>
+  <label for="email">Email</label>
+  <input type="text" class="span4" name="email"/>
+  <br/><br/>
+  <input type="submit" value="View order" class="btn btn-success"/>
+</form>

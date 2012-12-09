@@ -46,8 +46,9 @@ Fantasybath::Application.routes.draw do
     
     match '/submit_payment' => 'bath_tub#submit_payment', :via => :post, :as => :submit_payment
 
-    match '/check_order_status' => 'bath_tub#check_order_status', :via => :get, :as => :check_order_status
-    match '/view_order_status/:order_id' => 'bath_tub#view_order_status', :via => :get, :as => :view_order_status
+    match '/order_status' => 'bath_tub#order_status', :via => :get, :as => :order_status
+    match '/view_order_status' => 'bath_tub#view_order_status', :via => :post, :as => :view_order_status
+    match '/view_order' => 'bath_tub#view_order', :via => :get, :as => :view_order
 
     match '/thank_you' => 'bath_tub#thank_you', :via => :get, :as => :thank_you
 

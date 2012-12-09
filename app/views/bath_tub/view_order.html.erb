@@ -1,6 +1,10 @@
-<%= link_to "Orders", orders_path, :class => "btn btn-small" %>
-<br/>
 <h3>Order <span style="color:#666"><%= @order.id %></span></h3>
+<fieldset>
+  <legend>Status</legend>
+  <h5><%= @order.status.capitalize %></h5>
+  <p><%= "Last Updated: #{@order.updated_at.localtime}" %></p>
+</fieldset>
+<br/>
 <fieldset>
   <legend>Items</legend>
   <table class="table">
@@ -36,24 +40,9 @@
     <%= "#{@order.shipping_city}, #{@order.shipping_state} #{@order.shipping_zip}" %><br>
     <%= link_to @order.email, "mailto:#{@order.email}" %>
   </address> 
-  <% if @order.status == :pending %>
-    <address>
-      <strong><%= @order.shipping_method.description %></strong><br>
-    </address>
-    <form action="<%= mark_order_shipped_path %>" method="post">
-      <input type="hidden" name="id" value="<%= @order.id %>"/>
-      <label for="tracking">Tracking Number</label>
-      <input type="text" class="span4" name="tracking"/>
-      <br/>
-      <input type="submit" class="btn btn-success" value="Mark order as shipped"/>
-    </form>
-  <% end %>
-
-  <% if @order.status == :shipped %>
-    <address>
-      <strong><%= @order.shipping_method.description %></strong><br>
-      <%= "Tracking : #{@order.tracking}" %><br>
-    </address>
-  <% end %>
+  <address>
+    <strong><%= @order.shipping_method.description %></strong><br>
+    <%= "Tracking : #{@order.tracking}" %><br>
+  </address>
 
 </fieldset>

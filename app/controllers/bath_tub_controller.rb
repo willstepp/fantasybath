@@ -93,12 +93,12 @@ class BathTubController < ApplicationController
     if success
       AppMailer.order_processed(@bathtub.order.email, @bathtub.order.billing_name, @bathtub.order.id).deliver
 
-      @bathtub.order.status = :processed
+      @bathtub.order.status = :pending
       @bathtub.order.save
 
       @bathtub.destroy
 
-      redirect_to thank_you_path(:order => @bathtub.order.id)
+      redirect_to thank_you_path(:id => @bathtub.order.id, :email => @bathtub.order.email)
     else
       flash[:error] = charge.failure_message
       redirect_to checkout_path(:two)
@@ -106,14 +106,25 @@ class BathTubController < ApplicationController
   end
 
   def thank_you
-    @order_id = params[:order]
+    @order_id = params[:id]
+    @email = params[:email]
   end
 
-  def check_order_status
+  def order_status
   end
 
   def view_order_status
-    
+    redirect_to view_order_path(:id => params[:id], :email => params[:email])
+  end
+
+  def view_order
+    @order = params[:id].nil? ? nil : Order.find(params[:id])
+    if @order
+      if @order.email != params[:email]
+        flash[:error] = "Please enter valid order id and email"
+        redirect_to order_status_path
+      end
+    end
   end
 
   def get_coupon_info
