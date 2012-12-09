@@ -33,15 +33,20 @@ class Order
 
   def total
     total = 0
+
+    #order items
     self.order_items.each do |oi|
       p = Price.any_of({:product_id => oi.product.id}, {:scent_id => oi.scent.id}).first
       if p
         total += p.amount
       end
+      #upgrades
       oi.upgrades.each do |u|
         total += u.amount
       end
     end
+
+    #coupon
     if !self.coupon.nil?
      if self.coupon.type == :dollars
       total -= self.coupon.amount
@@ -50,5 +55,12 @@ class Order
       #calculate percentage off
      end
     end
+
+    #shipping
+    if self.shipping_method
+      total += self.shipping_method.amount
+    end
+
+    total
   end
 end
