@@ -19,14 +19,17 @@
 <body>
 
 <div class="navbar navbar-fixed-top">
-  <div class="navbar-inner">
-    <a class="brand" href="<%= root_path %>">Fantasy Bath</a>
+  <div class="navbar-inner" style="background-image:none;background-color:transparent;box-shadow:none;border:none">
     <ul class="nav pull-right">
       <li class="<%= yield(:order_status) %>"><a href="<%= order_status_path %>">Order Status</a></li>
       <li class="<%= yield(:bathtub) %>"><a href="<%= bathtub_path %>">Bathtub</a></li>
     </ul>
   </div>
 </div>
+<div>
+  <img src="/assets/fb_lady_large.png"/>
+</div>
+<div id="content-area">
 <% flash.each do |name, msg| %>
   <% if msg.kind_of?(Array) %>
     <div id="app_alert" class="alert fade in alert-<%= "#{name}" %>">
@@ -43,6 +46,7 @@
 <% end %>
 <div class="container">
   <%= yield %>
+</div>
 </div>
 
 </body>
