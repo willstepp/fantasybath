@@ -1,18 +1,53 @@
 <!-- logo --> 
-<div style="min-width:830px;max-width:950px;margin:0 auto">
+<div style="min-width:860px;max-width:950px;margin:0 auto">
+
   <div style="padding:15px">
+
      <div style="margin-top:25px;float:left;margin-left:10px;margin-right:10px">
       <a href="<%= root_path %>"><img src="/assets/fb_lady_large.png" style="width:350px"/></a>
     </div>
-    <div style="margin-top:75px;padding:30px;background-color:rgba(223, 234, 239, .4);border-radius:1.0em">
+
+    <div style="height:250px;margin-top:75px;padding:30px;background-color:rgba(223, 234, 239, .4);border-radius:1.0em">
       <h1 id="title-logo">Fantasy Bath</h1>
       <h4 style="font-size:1.7em;color:#ffdbcb;padding-top:30px;text-shadow: 0px 1px 3px rgba(0, 0, 0, .5);">Handmade Bath Products</h4>
       <div style="margin-top:75px">
-        <h6>Browse our catalog by</h6>
-        <div class="btn-group">
-          <a type="button" href="<%= catalog_index_path(:scents) %>" class="btn btn-large btn-red <%= @category_type == :scents ? "active" : "" %>">Scents</a>
-          <a type="button" href="<%= catalog_index_path(:products) %>" class="btn btn-large btn-red <%= @category_type == :products ? "active" : "" %>">Products</a>
-        </div>
+      <table class="table table-condensed" style="width:300px">
+        <tr>
+          <td style="border:none;vertical-align:bottom">
+            <div style="font-size:0.9em;font-weight:bold">Browse our catalog by</div>
+          </td>
+          <td style="padding-left:20px;border:none;vertical-align:top">
+            <div style="font-size:0.9em;font-weight:bold">Filter by<div>
+          </td>
+        </tr>
+        <tr>
+          <td style="border:none;vertical-align:top">
+           <div class="btn-group">
+            <a type="button" href="<%= catalog_index_path(:scents) %>" class="btn btn-large btn-red <%= @category_type == :scents ? "active" : "" %>">Scents</a>
+            <a type="button" href="<%= catalog_index_path(:products) %>" class="btn btn-large btn-red <%= @category_type == :products ? "active" : "" %>">Products</a>
+          </div>
+          </td>
+          <td style="padding-left:20px;padding-top:7px;border:none;vertical-align:top">
+            <form id="filter-form" action="<%= catalog_index_path(@category_type, :f => "") %>">
+              <select name="filter" id="filter">
+                <% if @category_type == :products %>
+                  <option value="-1">Product Type</option>
+                  <% @product_types.each do |pt| %>
+                    <option value="<%= pt.id %>" <%= pt.id.to_s == @selected_product_type ? "selected" : "" %> ><%= pt.name %></option>
+                  <% end %>
+                <% end %>
+                <% if @category_type == :scents %>
+                  Filter by <option value="-1">Scent Category</option>
+                  <% @scent_categories.each do |sc| %>
+                    <option value="<%= sc.id %>" <%= sc.id.to_s == @selected_scent_category ? "selected" : "" %> ><%= sc.name %></option>
+                  <% end %>
+                <% end %>
+              </select>
+            </form>
+          </td>
+        </tr>
+      </table>
+    </div>
       </div>
     </div>
   </div>
@@ -21,39 +56,40 @@
 
 <!-- list -->
 <div id="content-area">
-  <div style="min-width:800px;max-width:920px;margin:0 auto;padding:15px">
-    <div style="float:right">
-      <form id="filter-form" action="<%= catalog_index_path(:scents, :f => "") %>">
-        <select id="filter">
-          <% if @category_type == :products %>
-            <option value="-1">Filter by product type</option>
-            <% @product_types.each do |pt| %>
-              <option value="<%= pt.id %>"><%= pt.name %></option>
-            <% end %>
-          <% end %>
-          <% if @category_type == :scents %>
-            <option value="-1">Filter by scent category</option>
-            <% @scent_categories.each do |sc| %>
-              <option value="<%= sc.id %>"><%= sc.name %></option>
-            <% end %>
-          <% end %>
-        </select>
-      </form>
+  <div style="min-width:770px;max-width:920px;margin:0 auto;padding:15px">
+
+    <div style="float:right;margin:0px;padding:0px">
+     
     </div>
-    <div class="spacer"/>
+
+    <div class="spacer"></div>
+
+    <div style="margin:0 auto">
+    <ul class="thumbnails">
     <% if @category_type == :products %>
       <% @products.each do |p| %>
-        <p>
-        <%= link_to p.name, catalog_product_path(p.slug) %>
-        </p>
+        <li style="width:200px">
+          <div class="thumbnail">
+            <a href="<%= catalog_product_path(p.slug) %>"><img src="http://placehold.it/300x200" alt=""></a>
+            <h3><%= link_to p.name, catalog_product_path(p.slug) %></h3>
+            <p><%= p.description %></p>
+          </div>
+        </li>
       <% end %>
     <% else %>
       <% @scents.each do |s| %>
-        <p>
-        <%= link_to s.name, catalog_scent_path(s.slug) %>
-        </p>
+        <li style="width:200px">
+          <div class="thumbnail">
+            <a href="<%= catalog_scent_path(s.slug) %>"><img src="http://placehold.it/300x200" alt=""></a>
+            <h3><%= link_to s.name, catalog_scent_path(s.slug) %></h3>
+            <p><%= s.description %></p>
+          </div>
+        </li>
       <% end %>
     <% end %>
+    </ul>
+    </div>
+
   </div>
 </div>
 
@@ -65,8 +101,11 @@
         {
           var action = $('#filter-form').attr('action');
           action += filterId;
-          $('#filter-form').attr('action', action);
-          //$('#filter-form').submit();
+          window.location.href = action;
+        }
+        else
+        {
+          window.location.href = '<%= "#{catalog_index_path(@category_type)}" %>';
         }
       });
     });

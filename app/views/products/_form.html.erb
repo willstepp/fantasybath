@@ -33,7 +33,7 @@
     </label>
     <%= text_field_tag "prices[]", @product.prices.where(:scent_id => s.id).exists? ? Price.pennies_to_dollars(@product.prices.where(:scent_id => s.id).first.amount) : "", :class => "#{s.id}-price" %>
     <br/>
-    <%= link_to "Image Detail", image_detail_path(@product, s, :r => :product) %>
+    <%= link_to "Image Detail", image_detail_path(:product_id => @product.id, :scent_id => s.id, :r => "product") %>
     <hr/>
   <% end %>
 
