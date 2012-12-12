@@ -1,22 +1,50 @@
-<ul class="nav nav-pills">
-  <li class="<%= @category_type == :products ? "active" : "" %>">
-    <a href="<%= catalog_index_path(:products) %>">Products</a>
-  </li>
-  <li class="<%= @category_type == :scents ? "active" : "" %>">
-    <a href="<%= catalog_index_path(:scents) %>">Scents</a>
-  </li>
-</ul>
-<hr/>
-<% if @category_type == :products %>
-  <% @products.each do |p| %>
-    <p>
-    <%= link_to p.name, catalog_product_path(p.slug) %>
-    </p>
-  <% end %>
-<% else %>
-  <% @scents.each do |s| %>
-    <p>
-    <%= link_to s.name, catalog_scent_path(s.slug) %>
-    </p>
-  <% end %>
-<% end %>
+<!-- logo --> 
+<div style="min-width:830px;max-width:950px;margin:0 auto">
+  <div style="padding:15px">
+     <div style="margin-top:25px;float:left;margin-left:10px;margin-right:10px">
+      <a href="<%= root_path %>"><img src="/assets/fb_lady_large.png" style="width:350px"/></a>
+    </div>
+    <div style="margin-top:75px;padding:30px;background-color:rgba(223, 234, 239, .4);border-radius:1.0em">
+      <h1 id="title-logo">Fantasy Bath</h1>
+      <h4 style="font-size:1.7em;color:#ffdbcb;padding-top:30px;text-shadow: 0px 1px 3px rgba(0, 0, 0, .5);">Handmade Bath Products</h4>
+      <div style="margin-top:75px">
+        <h6>Browse our catalog by</h6>
+        <div class="btn-group">
+          <a type="button" href="<%= catalog_index_path(:scents) %>" class="btn btn-large btn-red <%= @category_type == :scents ? "active" : "" %>">Scents</a>
+          <a type="button" href="<%= catalog_index_path(:products) %>" class="btn btn-large btn-red <%= @category_type == :products ? "active" : "" %>">Products</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="spacer"/>
+
+<!-- list -->
+<div id="content-area">
+  <div style="min-width:800px;max-width:920px;margin:0 auto;padding:15px">
+    <div style="float:right">
+      <select>
+        <% if @category_type == :products %>
+          <option>Filter by product type</option>
+        <% end %>
+        <% if @category_type == :scents %>
+          <option>Filter by scent category</option>
+        <% end %>
+      </select>
+    </div>
+    <div class="spacer"/>
+    <% if @category_type == :products %>
+      <% @products.each do |p| %>
+        <p>
+        <%= link_to p.name, catalog_product_path(p.slug) %>
+        </p>
+      <% end %>
+    <% else %>
+      <% @scents.each do |s| %>
+        <p>
+        <%= link_to s.name, catalog_scent_path(s.slug) %>
+        </p>
+      <% end %>
+    <% end %>
+  </div>
+</div>

@@ -19,19 +19,16 @@
 </head>
 <body>
 
-<div class="navbar navbar-fixed-top">
-  <div class="navbar-inner" style="background-image:none;background-color:transparent;box-shadow:none;border:none">
-    <ul class="nav pull-right">
-      <li class="<%= yield(:order_status) %>"><a href="<%= order_status_path %>">Order Status</a></li>
-      <li class="<%= yield(:bathtub) %>"><a href="<%= bathtub_path %>">Bathtub</a></li>
-    </ul>
+<!-- top bar -->
+<div id="top-bar">
+  <div id="top-bar-inner">
+      <a class="<%= yield(:order_status) %>" href="<%= order_status_path %>">Order Status</a>
+      &nbsp;&nbsp;
+      <a class="<%= yield(:bathtub) %>" href="<%= bathtub_path %>">Tub</a>
   </div>
 </div>
-<div>
-  <img src="/assets/fb_lady_large.png"/>
-  <h1 id="title-logo">Fantasy Bath</h1>
-</div>
-<div id="content-area">
+
+<!-- content -->
 <% flash.each do |name, msg| %>
   <% if msg.kind_of?(Array) %>
     <div id="app_alert" class="alert fade in alert-<%= "#{name}" %>">
@@ -46,10 +43,13 @@
     <div id="app_alert" class="alert fade in alert-<%= "#{name}" %>"><%= msg %><a class="close" data-dismiss="alert">×</a></div>
   <% end %>
 <% end %>
-<div class="container">
+<div>
   <%= yield %>
 </div>
-</div>
+
+<!-- footer -->
+<footer>
+</footer>
 
 </body>
 </html>

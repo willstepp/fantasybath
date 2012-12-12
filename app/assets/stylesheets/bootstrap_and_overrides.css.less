@@ -1,6 +1,5 @@
 @import "twitter/bootstrap/bootstrap";
 body { 
-	padding-top: 60px;
   background-color:transparent;
 }
 
@@ -40,5 +39,31 @@ body {
   color:#e0ebef;
   color:white;
 
-  text-shadow: 0px 1px 5px rgba(0, 0, 0, .33);
+  text-shadow: 0px 1px 5px rgba(0, 0, 0, .5);
+}
+
+.navbar-inner {
+  -webkit-box-shadow:none;
+  -moz-box-shadow:none;
+  box-shadow:none;
+  border:none;
+  background-image:none;
+  background-color:transparent;
+}
+
+.btn-red {
+  background-color: hsl(360, 66%, 29%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#cf2a2a", endColorstr="#7a1919");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#cf2a2a), to(#7a1919));
+  background-image: -moz-linear-gradient(top, #cf2a2a, #7a1919);
+  background-image: -ms-linear-gradient(top, #cf2a2a, #7a1919);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #cf2a2a), color-stop(100%, #7a1919));
+  background-image: -webkit-linear-gradient(top, #cf2a2a, #7a1919);
+  background-image: -o-linear-gradient(top, #cf2a2a, #7a1919);
+  background-image: linear-gradient(#cf2a2a, #7a1919);
+  border-color: #7a1919 #7a1919 hsl(360, 66%, 24%);
+  color: #fff !important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.33);
+  -webkit-font-smoothing: antialiased;
 }

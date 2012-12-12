@@ -58,10 +58,10 @@ Fantasybath::Application.routes.draw do
 
     match '/get_coupon_info/:key' => 'bath_tub#get_coupon_info', :via => :get, :as => :get_coupon_info
     
-    match '/bathtub' => 'bath_tub#index', :via => :get, :as => :bathtub
-    match '/bathtub_add' => 'bath_tub#add', :via => :post, :as => :bathtub_add
-    match '/bathtub_update' => 'bath_tub#update', :via => :put, :as => :bathtub_update
-    match '/bathtub_remove' => 'bath_tub#remove', :via => :post, :as => :bathtub_remove
+    match '/tub' => 'bath_tub#index', :via => :get, :as => :bathtub
+    match '/tub_add' => 'bath_tub#add', :via => :post, :as => :bathtub_add
+    match '/tub_update' => 'bath_tub#update', :via => :put, :as => :bathtub_update
+    match '/tub_remove' => 'bath_tub#remove', :via => :post, :as => :bathtub_remove
 
     match '/:catalog_type' => 'catalog#index', :via => :get, :as => :catalog_index
     match '/scents/:id' => 'catalog#scent', :via => :get, :as => :catalog_scent
