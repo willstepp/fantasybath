@@ -7,7 +7,7 @@ class CatalogController < ApplicationController
     else
       @category_type = :scents
       @scents = Scent.all
-      @category_types = ScentCategory.all
+      @scent_categories = ScentCategory.all
     end
   end
 

@@ -23,14 +23,22 @@
 <div id="content-area">
   <div style="min-width:800px;max-width:920px;margin:0 auto;padding:15px">
     <div style="float:right">
-      <select>
-        <% if @category_type == :products %>
-          <option>Filter by product type</option>
-        <% end %>
-        <% if @category_type == :scents %>
-          <option>Filter by scent category</option>
-        <% end %>
-      </select>
+      <form id="filter-form" action="<%= catalog_index_path(:scents, :f => "") %>">
+        <select id="filter">
+          <% if @category_type == :products %>
+            <option value="-1">Filter by product type</option>
+            <% @product_types.each do |pt| %>
+              <option value="<%= pt.id %>"><%= pt.name %></option>
+            <% end %>
+          <% end %>
+          <% if @category_type == :scents %>
+            <option value="-1">Filter by scent category</option>
+            <% @scent_categories.each do |sc| %>
+              <option value="<%= sc.id %>"><%= sc.name %></option>
+            <% end %>
+          <% end %>
+        </select>
+      </form>
     </div>
     <div class="spacer"/>
     <% if @category_type == :products %>
@@ -48,3 +56,18 @@
     <% end %>
   </div>
 </div>
+
+<script type="text/javascript">
+    $(function() {
+      $('#filter').change(function() {
+        var filterId = $(this).val();
+        if (filterId != '-1')
+        {
+          var action = $('#filter-form').attr('action');
+          action += filterId;
+          $('#filter-form').attr('action', action);
+          //$('#filter-form').submit();
+        }
+      });
+    });
+</script>
