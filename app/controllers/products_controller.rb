@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   http_basic_authenticate_with(:name => ENV['WORKSHOP_USER'], :password => ENV['WORKSHOP_PSWD']) if Rails.env == "production"
+  before_filter :set_page_name
 
   def index
     @products = Product.all
@@ -252,5 +253,11 @@ class ProductsController < ApplicationController
     @pt = ProductType.find(params[:id])
     @pt.destroy
     redirect_to product_types_path
+  end
+
+    protected
+
+  def set_page_name
+    @page_name = "Workshop"
   end
 end

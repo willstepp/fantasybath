@@ -1,4 +1,6 @@
 class OrdersController < ApplicationController
+  before_filter :set_page_name
+
   def index
     @ready_orders = Order.where(:status => :pending)
     @shipped_orders = Order.where(:status => :shipped)
@@ -17,5 +19,11 @@ class OrdersController < ApplicationController
     AppMailer.order_shipped(@order).deliver
 
     redirect_to orders_path
+  end
+
+  protected
+
+  def set_page_name
+    @page_name = "Workshop"
   end
 end

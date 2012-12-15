@@ -27,6 +27,8 @@ class CatalogController < ApplicationController
   end
 
   def scent
+    @page_name = "Scent"
+
     @scent = Scent.where(:slug => params[:id]).first
     if @scent.nil?
       @scent = Scent.find(params[:id])
@@ -34,6 +36,8 @@ class CatalogController < ApplicationController
   end
 
   def product
+    @page_name = "Product"
+    
     @product = Product.where(:slug => params[:id]).first
     if @product.nil?
       @product = Product.find(params[:id])

@@ -27,7 +27,7 @@
   </div>
 </div>
 
-<div style="padding-top:75px"></div>
+<div style="padding-top:60px"></div>
 
 <!-- content -->
 <% flash.each do |name, msg| %>
@@ -103,7 +103,12 @@
 <div class="spacer"/>
 <% else %>
   <div style="min-width:860px;max-width:920px;margin:0 auto">
-    <div style="margin-bottom:20px;margin-top:15px;height:50px;padding:10px;background-color:rgba(223, 234, 239, .4);border-radius:1.0em">
+    <div style="margin-bottom:20px">
+      <div style="float:left">
+      <a href="<%= root_path %>"><img src="/assets/fb_lady_large.png" style="width:75px;vertical-align:bottom"/></a>
+      </div>
+      <span id="page-title"><%= @page_name.nil? ? "Fantasy Bath" : @page_name %></span>
+      <div class="spacer"></div>
     </div>
   </div>
 <% end %>

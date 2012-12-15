@@ -1,4 +1,6 @@
 class ShippingMethodsController < ApplicationController
+  before_filter :set_page_name
+
   def index
     @shipping_methods = ShippingMethod.all
   end
@@ -46,5 +48,11 @@ class ShippingMethodsController < ApplicationController
     sm = ShippingMethod.find(params[:id])
     sm.destroy
     redirect_to shipping_methods_path
+  end
+
+  protected
+
+  def set_page_name
+    @page_name = "Workshop"
   end
 end

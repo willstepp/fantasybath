@@ -1,4 +1,6 @@
 class CouponsController < ApplicationController
+  before_filter :set_page_name
+  
   def index
     @coupons = Coupon.all
   end
@@ -73,5 +75,11 @@ class CouponsController < ApplicationController
     c = Coupon.find(params[:id])
     c.destroy
     redirect_to coupons_path
+  end
+
+    protected
+
+  def set_page_name
+    @page_name = "Workshop"
   end
 end
