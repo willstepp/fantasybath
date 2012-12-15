@@ -1,6 +1,6 @@
 class CatalogController < ApplicationController
   def index
-    @category_type = params[:catalog_type].nil? ? :scents : params[:catalog_type].to_sym
+    @category_type = params[:catalog_type].nil? ? :products : params[:catalog_type].to_sym
     if @category_type == :products
       @products = Product.all
       if params[:f]

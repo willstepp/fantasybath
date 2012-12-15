@@ -1,48 +1,74 @@
 <%= form_for(@scent) do |s| %>
-  <% if @scent.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@scent.errors.count, "error") %> prohibited this scent from being saved:</h2>
-
-      <ul>
-      <% @scent.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
 
   <%= s.label :name %>
-  <%= s.text_field :name %>
+  <%= s.text_field :name, :class => "span4" %>
   <br/>
   <%= s.label :description %>
-  <%= s.text_area :description %>
+  <%= s.text_area :description, :class => "span4 description-box" %>
   <br/>
   <%= s.label :color %>
-  <%= s.text_field :color, :class => "color" %>
-
-  <h3>Choose Available Products</h3>
-  <% @products.each do |p| %>
-    <label for="<%= p.name %>">
-    <%= check_box_tag "products[]", p.id, @scent.products.where(:id => p.id).exists? ? true : false, :id => p.name, :class => "product-cb" %> 
-    <%= p.name %>
-    </label>
-    <%= text_field_tag "prices[]", @scent.prices.where(:product_id => p.id).exists? ? Price.pennies_to_dollars(@scent.prices.where(:product_id => p.id).first.amount) : "", :class => "#{p.id}-price" %>
-    <br/>
-    <%= link_to "Image Detail", image_detail_path(:product_id => p.id, :scent_id => @scent.id, :r => "scent") %>
-    <hr/>
-  <% end %>
+  <%= s.text_field :color, :class => "color span4" %>
 
   <h3>Scent Categories</h3>
-  <% @scent_categories.each do |sc| %>
-    <label for="<%= sc.name %>">
-    <%= check_box_tag "scent_categories[]", sc.id, @scent.scent_categories.where(:id => sc.id).exists? ? true : false, :id => sc.name, :class => "scent_category-cb" %> 
-    <%= sc.name %>
-    </label>
-    <br/>
-  <% end %>
+
+  <table class="table table-condensed" style="background-color:white;border-radius:.5em">
+    <% items_per_row = 3 %>
+    <% num_rows = (@scent_categories.count.to_f / items_per_row.to_f).ceil %>
+    <% sc_index = 0 %>
+    <% (1..num_rows).each do %>
+      <% counter = 1 %>
+      <tr>
+        <% while counter <= 3 do %>
+          <% if !@scent_categories[sc_index].nil? %>
+            <td style="border:none;padding:10px">
+              <% sc = @scent_categories[sc_index] %>
+              <label for="<%= sc.name %>">
+              <%= check_box_tag "scent_categories[]", sc.id, @scent.scent_categories.where(:id => sc.id).exists? ? true : false, :id => sc.name, :class => "scent_category-cb" %> 
+              <%= sc.name %>
+              </label>
+            </td>
+            <% sc_index += 1 %>
+          <% end %>
+          <% counter += 1 %>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+
+  <h3>Choose Available Products</h3>
+
+  <table class="table table-condensed" style="background-color:white;border-radius:.5em">
+
+    <% items_per_row = 3 %>
+    <% num_rows = (@products.count.to_f / items_per_row.to_f).ceil %>
+    <% product_index = 0 %>
+    <% (1..num_rows).each do %>
+      <% counter = 1 %>
+      <tr>
+        <% while counter <= 3 do %>
+          <% if !@products[product_index].nil? %>
+            <td style="border:none;padding:10px">
+              <% p = @products[product_index] %>
+              <label for="<%= p.name %>">
+              <%= check_box_tag "products[]", p.id, @scent.products.where(:id => p.id).exists? ? true : false, :id => p.name, :class => "product-cb" %> 
+              <%= p.name %>
+              </label>
+              <%= text_field_tag "prices[]", @scent.prices.where(:product_id => p.id).exists? ? Price.pennies_to_dollars(@scent.prices.where(:product_id => p.id).first.amount) : "", :class => "#{p.id}-price span1" %>
+              <br/>
+              <%= link_to "Image Detail", image_detail_path(:product_id => p.id, :scent_id => @scent.id, :r => "scent") %>
+            </td>
+            <% product_index += 1 %>
+          <% end %>
+          <% counter += 1 %>
+        <% end %>
+      </tr>
+    <% end %>
+
+  </table>
 
   <div class="actions">
-    <%= s.submit %>
+    <%= s.submit nil, :class => "btn btn-red" %>
+    <%= link_to "Cancel", scents_path %>
   </div>
 <% end %>
 

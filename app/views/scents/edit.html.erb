@@ -1,4 +1,5 @@
-<h1>Editing scent</h1>
+
+<h2>Editing scent</h2>
 <p>
  <% if !@scent_image.nil? %>
   <%= image_tag @scent_image.url, :style => "width:100px;" %>
@@ -7,6 +8,3 @@
 <%= link_to "Edit icon", scent_icon_path(@scent) %>
 </p>
 <%= render 'form' %>
-
-<%= link_to 'Show', @scent %> |
-<%= link_to 'Back', scents_path %>

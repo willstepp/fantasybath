@@ -22,7 +22,7 @@ body {
 }
 
 #content-area {
-  background-color:#f5f5f5;
+  background-color:#e8f3f8;
   padding:15px;
 
   -webkit-box-shadow: rgba(25, 25, 25, 0.4) 0px 0px 2px;
@@ -31,6 +31,14 @@ body {
 
   border-top: 1px solid #e0e0e0;
   border-bottom:1px solid #e0e0e0;
+}
+
+.content {
+  min-width:770px;
+  max-width:920px;
+  margin:0 auto;
+  padding:15px;
+  padding-top:0px;
 }
 
 .spacer {
@@ -53,14 +61,25 @@ body {
 
 #top-bar-inner a {
   color:white;
-  text-shadow: 0px -1px 1px rgba(0, 0, 0, .33);
+  text-shadow: 0px 1px 3px rgba(0, 0, 0, .75);
 }
 
 #top-bar-action-tab {
   background-color:#ffdbcb;
   padding:15px;
+  padding-left:0px;
   margin:0px;
   width:130px;
   float:right;
   border-radius:0 0 1.0em 1.0em;
+
+  -webkit-box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.15);
+  box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.15);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=15, Direction=135, Color='#000000')";
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=15, Direction=135, Color='#000000');
+}
+
+.description-box {
+  height:250px;
 }

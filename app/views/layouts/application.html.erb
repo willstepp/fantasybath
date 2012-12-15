@@ -21,11 +21,13 @@
   <div id="top-bar-inner">
       <div id="top-bar-action-tab">
       <a class="<%= yield(:order_status) %>" href="<%= order_status_path %>">Order Status</a>
-      &nbsp;&nbsp;
+      &nbsp;
       <a class="<%= yield(:bathtub) %>" href="<%= bathtub_path %>">Tub</a>
       </div>
   </div>
 </div>
+
+<div style="padding-top:75px"></div>
 
 <!-- content -->
 <% flash.each do |name, msg| %>
@@ -42,9 +44,78 @@
     <div id="app_alert" class="alert fade in alert-<%= "#{name}" %>"><%= msg %><a class="close" data-dismiss="alert">×</a></div>
   <% end %>
 <% end %>
-<div>
-  <%= yield %>
+
+<!-- logo --> 
+<% if !@category_type.nil? %>
+<div style="min-width:860px;max-width:950px;margin:0 auto">
+
+  <div style="padding:15px">
+
+     <div style="margin-top:-45px;float:left;margin-left:10px;margin-right:10px">
+      <a href="<%= root_path %>"><img src="/assets/fb_lady_large.png" style="width:350px"/></a>
+    </div>
+
+    <div style="height:250px;padding:30px;background-color:rgba(223, 234, 239, .4);border-radius:1.0em">
+      <h1 id="title-logo">Fantasy Bath</h1>
+      <h4 style="font-size:1.7em;font-weight:normal;color:#ffdbcb;padding-top:30px;text-shadow: 0px 1px 3px rgba(0, 0, 0, .5);">Handmade Bath Products</h4>
+      <div style="margin-top:75px">
+      <table class="table table-condensed" style="width:300px">
+        <tr>
+          <td style="border:none;vertical-align:bottom">
+            <div style="font-size:0.9em;font-weight:bold">Browse our catalog by</div>
+          </td>
+          <td style="padding-left:20px;border:none;vertical-align:top">
+            <div style="font-size:0.9em;font-weight:bold">Filter by<div>
+          </td>
+        </tr>
+        <tr>
+          <td style="border:none;vertical-align:top">
+           <div class="btn-group">
+            <a type="button" href="<%= catalog_index_path(:products) %>" class="btn btn-large btn-red <%= @category_type == :products ? "active" : "" %>">Products</a>
+            <a type="button" href="<%= catalog_index_path(:scents) %>" class="btn btn-large btn-red <%= @category_type == :scents ? "active" : "" %>">Scents</a>
+          </div>
+          </td>
+          <td style="padding-left:20px;padding-top:7px;border:none;vertical-align:top">
+            <form id="filter-form" action="<%= catalog_index_path(@category_type, :f => "") %>">
+              <select name="filter" id="filter">
+                <% if @category_type == :products %>
+                  <option value="-1">Product Type</option>
+                  <% @product_types.each do |pt| %>
+                    <option value="<%= pt.id %>" <%= pt.id.to_s == @selected_product_type ? "selected" : "" %> ><%= pt.name %></option>
+                  <% end %>
+                <% end %>
+                <% if @category_type == :scents %>
+                  Filter by <option value="-1">Scent Category</option>
+                  <% @scent_categories.each do |sc| %>
+                    <option value="<%= sc.id %>" <%= sc.id.to_s == @selected_scent_category ? "selected" : "" %> ><%= sc.name %></option>
+                  <% end %>
+                <% end %>
+              </select>
+            </form>
+          </td>
+        </tr>
+      </table>
+    </div>
+      </div>
+    </div>
+  </div>
 </div>
+<div class="spacer"/>
+<% else %>
+  <div style="min-width:860px;max-width:920px;margin:0 auto">
+    <div style="margin-bottom:20px;margin-top:15px;height:50px;padding:10px;background-color:rgba(223, 234, 239, .4);border-radius:1.0em">
+    </div>
+  </div>
+<% end %>
+
+<div id="content-area">
+  <div class="content">
+    <%= yield %>
+  </div>
+</div>
+
+<footer>
+</footer>
 
 </body>
 </html>

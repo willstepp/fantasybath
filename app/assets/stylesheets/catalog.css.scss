@@ -1,3 +1,44 @@
 // Place all the styles related to the Catalog controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.catalog-tiles { 
+  list-style-type:none;
+}
+
+.catalog-tiles li { 
+
+    margin-bottom:20px;
+    margin-right:20px;
+
+    width:200px;
+    height:400px;
+
+    float:left;
+
+    background-color:white;
+    border-radius:0.25em;
+
+    -webkit-box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.15);
+    box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.15);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=15, Direction=135, Color='#000000')";
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=15, Direction=135, Color='#000000');
+}
+
+.catalog-tiles img {
+  border-radius:0.25em 0.25em 0 0;
+}
+
+.catalog-tile-content {
+  padding:10px;
+  font-size:0.9em;
+}
+
+.catalog-tile-content a {
+}
+
+.catalog-tile-content h4 {
+  font-weight:normal;
+}
