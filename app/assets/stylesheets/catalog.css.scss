@@ -29,6 +29,8 @@
 
 .catalog-tiles img {
   border-radius:0.25em 0.25em 0 0;
+  width:200px;
+  height:133px;
 }
 
 .catalog-tile-content {
@@ -41,4 +43,34 @@
 
 .catalog-tile-content h4 {
   font-weight:normal;
+}
+
+.product-content-area {
+  background-color:white;
+  border-radius:0.5em;
+  width:500px;
+
+  -webkit-box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.15);
+    box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.15);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=15, Direction=135, Color='#000000')";
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=15, Direction=135, Color='#000000');
+}
+
+.product-content-area img {
+  width:500px;
+  border-radius:0.5em 0.5em 0 0;
+}
+
+.product-content-area fieldset {
+  padding:10px;
+}
+
+.product-content-area legend {
+  margin-bottom:10px;
+}
+
+.product-amount {
+  font-size:0.65em;
+  float:right;
 }

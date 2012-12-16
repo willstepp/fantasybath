@@ -1,34 +1,28 @@
 <%= link_to "Workshop", workshop_path, :class => "btn btn-small" %>
-<h1>Scents</h1>
-
-<table>
+<hr/>
+<h2>Scents</h2>
+<%= link_to 'New scent', new_scent_path, :class => "btn btn-success" %>
+&nbsp;
+<%= link_to "Manage scent categories", scent_categories_path %>
+<br/><br/>
+<table class="table table-bordered table-striped" style="background-color:white">
   <tr>
     <th>Name</th>
-    <th>Description</th>
-    <th>Actions</th>
+    <th>Last Updated</th>
+    <th></th>
   </tr>
 
 <% @scents.each do |scent| %>
   <tr>
     <td>
-      <%= scent.name %>
+      <%= link_to scent.name, edit_scent_path(scent) %>
     </td>
     <td>
-      <%= scent.description %>
+      <%= scent.updated_at.localtime.strftime("%m/%d/%Y %I:%M %P") %>
     </td>
     <td>
-      <%= link_to 'Show', scent %>
-      <%= link_to 'Edit', edit_scent_path(scent) %>
-      <%= link_to 'Destroy', scent, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <%= link_to 'Delete', scent, method: :delete, data: { confirm: 'Are you sure?' }, :style => "color:red" %>
     </td>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New Scent', new_scent_path %>
-
-<hr/>
-
-<%= link_to "Manage Scent Categories", scent_categories_path, :class => "btn btn-small" %>

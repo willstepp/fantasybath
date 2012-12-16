@@ -3,7 +3,7 @@ class ProductsController < ApplicationController
   before_filter :set_page_name
 
   def index
-    @products = Product.all
+    @products = Product.all.asc(:name)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -24,8 +24,8 @@ class ProductsController < ApplicationController
   def new
     @product = Product.new
 
-    @product_types = ProductType.all
-    @scents = Scent.all
+    @product_types = ProductType.all.asc(:name)
+    @scents = Scent.all.asc(:name)
  
     respond_to do |format|
       format.html # new.html.erb
@@ -36,8 +36,8 @@ class ProductsController < ApplicationController
   def edit
     @product = Product.find(params[:id])
     @product_image = Image.all_of({:product_id => params[:id]}, {:type => :product}).first
-    @product_types = ProductType.all
-    @scents = Scent.all
+    @product_types = ProductType.all.asc(:name)
+    @scents = Scent.all.asc(:name)
   end
 
   def create
@@ -216,7 +216,7 @@ class ProductsController < ApplicationController
   #Product Types
 
   def product_types
-    @product_types = ProductType.all
+    @product_types = ProductType.all.asc(:name)
   end
 
   def new_product_type

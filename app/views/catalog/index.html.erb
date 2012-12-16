@@ -4,7 +4,7 @@
       <% @products.each do |p| %>
         <li>
             <div>
-            <a href="<%= catalog_product_path(p.slug) %>"><img src="http://placehold.it/300x200" alt=""></a>
+            <a href="<%= catalog_product_path(p.slug) %>"><img src="<%= p.images.count > 0 ? p.images.first.url : "http://placehold.it/200X133" %>" alt=""></a>
             <div class="catalog-tile-content">
             <h4><%= link_to p.name, catalog_product_path(p.slug) %></h4>
             <p><%= "#{p.description.slice(0, 250)}#{p.description.length > 265 ? "..." : ""}" %></p>
@@ -16,7 +16,7 @@
       <% @scents.each do |s| %>
         <li>
           <div>
-            <a href="<%= catalog_scent_path(s.slug) %>"><img src="http://placehold.it/300x200" alt=""></a>
+            <a href="<%= catalog_scent_path(s.slug) %>"><img src="http://placehold.it/200X133" alt=""></a>
             <div class="catalog-tile-content">
             <h4><%= link_to s.name, catalog_scent_path(s.slug) %></h4>
             <p><%= "#{s.description.slice(0, 250)}#{s.description.length > 265 ? "..." : ""}" %></p>
@@ -26,7 +26,7 @@
       <% end %>
     <% end %>
     </ul>
-    <div class="spacer"/>
+    <div class="spacer"></div>
     </div>
 
 <script type="text/javascript">

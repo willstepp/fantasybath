@@ -16,6 +16,7 @@
 </head>
 <body>
 
+<% if @page_name != "Workshop" %>
 <!-- top bar -->
 <div id="top-bar">
   <div id="top-bar-inner">
@@ -26,6 +27,7 @@
       </div>
   </div>
 </div>
+<% end %>
 
 <div style="padding-top:60px"></div>
 
@@ -65,7 +67,7 @@
             <div style="font-size:0.9em;font-weight:bold">Browse our catalog by</div>
           </td>
           <td style="padding-left:20px;border:none;vertical-align:top">
-            <div style="font-size:0.9em;font-weight:bold">Filter by<div>
+            <div style="font-size:0.9em;font-weight:bold">Filter by</div>
           </td>
         </tr>
         <tr>
@@ -85,7 +87,7 @@
                   <% end %>
                 <% end %>
                 <% if @category_type == :scents %>
-                  Filter by <option value="-1">Scent Category</option>
+                  <option value="-1">Scent Category</option>
                   <% @scent_categories.each do |sc| %>
                     <option value="<%= sc.id %>" <%= sc.id.to_s == @selected_scent_category ? "selected" : "" %> ><%= sc.name %></option>
                   <% end %>
@@ -99,16 +101,12 @@
       </div>
     </div>
   </div>
-</div>
-<div class="spacer"/>
+<div class="spacer"></div>
 <% else %>
-  <div style="min-width:860px;max-width:920px;margin:0 auto">
-    <div style="margin-bottom:20px">
-      <div style="float:left">
-      <a href="<%= root_path %>"><img src="/assets/fb_lady_large.png" style="width:75px;vertical-align:bottom"/></a>
-      </div>
-      <span id="page-title"><%= @page_name.nil? ? "Fantasy Bath" : @page_name %></span>
-      <div class="spacer"></div>
+  <div style="min-width:860px;max-width:950px;margin:0 auto">
+    <div style="padding:15px;padding-top:0px">
+      <a href="<%= root_path %>"><img src="/assets/fb_lady_large.png" style="width:60px;margin-right:10px;vertical-align:bottom"/></a>
+      <a href="<%= root_path %>" id="page-title">Fantasy Bath</a>
     </div>
   </div>
 <% end %>
@@ -119,7 +117,10 @@
   </div>
 </div>
 
-<footer>
+<footer style="margin:0 auto;padding:15px">
+  <div>
+    <a href="mailto:fantasybath@gmail.com">Contact Us</a>
+  </div>
 </footer>
 
 </body>

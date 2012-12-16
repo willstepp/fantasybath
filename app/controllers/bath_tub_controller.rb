@@ -2,7 +2,6 @@ class BathTubController < ApplicationController
   before_filter :update_bathtub
 
   def index
-    @page_name = "Tub"
   end
 
   def add
@@ -112,7 +111,6 @@ class BathTubController < ApplicationController
   end
 
   def order_status
-    @page_name = "Order Status"
   end
 
   def view_order_status
@@ -125,8 +123,6 @@ class BathTubController < ApplicationController
   end
 
   def view_order
-    @page_name = "Order Status"
-    
     @order = params[:id].nil? ? nil : Order.find(params[:id])
     if @order
       if @order.email != params[:email]

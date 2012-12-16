@@ -1,25 +1,56 @@
 <%= link_to "Products", catalog_index_path(:products), :class => "btn btn-small" %>
-<h3><%= @product.name %></h3>
-<p>
-  <%= @product.description %>
-</p>
+<br/><br/>
+<div class="product-content-area">
+  <% if @product.images.count > 0 %>
+    <%= image_tag @product.images.first.url %>
+  <% end %>
+  <fieldset>
+    <legend>
+      <%= @product.name %>
+      <div class="product-amount">
+        <%= "#{@product.size} #{@product.uom}" %>
+      </div>
+    </legend>
+      <p>
+      <%= @product.description %>
+      </p>
+  </fieldset>
+</div>
+
+<br/>
 <%= form_tag bathtub_add_path, :method => :post do %>
   <%= hidden_field_tag :product_id, @product.id %>
-  <label for="scent_id">Choose a scent</label>
-  <%= select_tag :scent_id, options_from_collection_for_select(@product.scents, :id, :name) %>
-  <br/>
-  <label for="quantity">How many do you want?</label>
-  <%= text_field_tag :quantity, 1, :class => "span1" %>
-  <br/>
-  <% if !@product.upgrades.empty? %>
-    <label>Choose an upgrade</label>
-    <% @product.upgrades.each do |u| %>
-      <label for="<%= u.id %>">
-      <%= check_box_tag "upgrades[]", u.id, false, :id => u.id %> 
-      <%= u.description %>
-      </label>
+
+  <div class="product-content-area">
+    <div style="padding:15px">
+      <select name="filter" id="scent_id">
+         <option value="-1">Choose a scent</option>
+          <% @product.scents.each do |s| %>
+            <option value="<%= s.id %>"><%= s.name %></option>
+          <% end %>
+      </select>
+
+  <hr/>
+  
+    <% if !@product.upgrades.empty? %>
+      <% @product.upgrades.each do |u| %>
+        <label for="<%= u.id %>">
+        <%= check_box_tag "upgrades[]", u.id, false, :id => u.id %> 
+        <%= "#{u.description} : #{number_to_currency(u.amount)}" %>
+        </label>
+      <% end %>
+    <hr/>
     <% end %>
-  <% end %>
-  <br/><br/>
-  <%= submit_tag "Add to Bathtub", :class => "btn btn-success" %>
+
+  <label for="quantity">Quantity
+    <%= text_field_tag :quantity, 1, :class => "span1" %>
+  </label>
+  <hr/>
+  <div style="padding:15px;background-color:#efefef;border-radius:0.25em;margin-bottom:5px;text-align:center">
+    <span style="color:green;font-weight:bold;font-size:1.5em">$0.00</span>
+  </div>
+  <%= submit_tag "Add to Tub", :class => "btn btn-red btn-large btn-block", :style => "width:100%" %>
+
+</div>
+</div>
 <% end %>

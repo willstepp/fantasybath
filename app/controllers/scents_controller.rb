@@ -3,7 +3,7 @@ class ScentsController < ApplicationController
   before_filter :set_page_name
 
   def index
-    @scents = Scent.all
+    @scents = Scent.all.asc(:name)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -23,8 +23,8 @@ class ScentsController < ApplicationController
 
   def new
     @scent = Scent.new
-    @products = Product.all
-    @scent_categories = ScentCategory.all
+    @products = Product.all.asc(:name)
+    @scent_categories = ScentCategory.all.asc(:name)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -36,8 +36,8 @@ class ScentsController < ApplicationController
     @scent = Scent.find(params[:id])
     @scent_image = Image.all_of({:scent_id => params[:id]}, {:type => :scent}).first
 
-    @products = Product.all
-    @scent_categories = ScentCategory.all
+    @products = Product.all.asc(:name)
+    @scent_categories = ScentCategory.all.asc(:name)
   end
 
   def create
@@ -173,7 +173,7 @@ class ScentsController < ApplicationController
   #Scent Categories
 
   def scent_categories
-    @scent_categories = ScentCategory.all
+    @scent_categories = ScentCategory.all.asc(:name)
   end
 
   def new_scent_category
