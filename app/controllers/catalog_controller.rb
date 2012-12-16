@@ -39,4 +39,14 @@ class CatalogController < ApplicationController
       @product = Product.find(params[:id])
     end
   end
+
+  def get_price
+    p = Price.all_of({:product_id => params[:product_id]}, {:scent_id => params[:scent_id]}).first
+    amount = p.nil? ? 0.0 : Price.pennies_to_dollars(p.amount)
+
+    respond_to do |format|
+      format.json { render :json => { :price => amount } }
+    end
+  end
+  
 end

@@ -5,6 +5,8 @@
 </p>
 <%= form_tag bathtub_add_path, :method => :post do %>
   <%= hidden_field_tag :scent_id, @scent.id %>
+  <%= hidden_field_tag :return_url, "#{request.protocol}#{request.host_with_port}#{request.fullpath}" %>
+  
   <label for="product_id">Choose a product</label>
   <%= select_tag :product_id, options_from_collection_for_select(@scent.products, :id, :name) %>
   <label for="quantity">How many do you want?</label>

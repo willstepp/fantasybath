@@ -1,18 +1,20 @@
-<h3>Order <span style="color:#666"><%= @order.id %></span></h3>
+<div class="fb-content-area">
+<h3>Order <span style="color:#999"><%= @order.id %></span></h3>
 <fieldset>
   <legend>Status</legend>
   <h5><%= @order.status.capitalize %></h5>
-  <p><%= "Last Updated: #{@order.updated_at.localtime}" %></p>
+  <p><em><%= "Last Updated: #{@order.updated_at.localtime.strftime("%m/%d/%Y %I:%M %P")}" %></em></p>
 </fieldset>
 <br/>
 <fieldset>
   <legend>Items</legend>
-  <table class="table">
+  <h5>Payment Total: <%= number_to_currency(Price.pennies_to_dollars(@order.total)) %></h5>
+  <table class="table table-bordered">
      <tr>
-        <th style="border:none">Product</th>
-        <th style="border:none">Scent</th>
-        <th style="border:none">Size</th>
-        <th style="border:none">Quantity</th>
+        <th>Product</th>
+        <th>Scent</th>
+        <th>Size</th>
+        <th>Quantity</th>
       </tr>
     <% @order.order_items.each do |oi| %>
       <tr class="info">
@@ -33,7 +35,7 @@
 </fieldset>
 <br/>
 <fieldset>
-  <legend>Shipping</legend>
+  <legend>Shipping Details</legend>
   <address>
     <strong><%= @order.shipping_name %></strong><br>
     <%= @order.shipping_address %><br>
@@ -42,7 +44,8 @@
   </address> 
   <address>
     <strong><%= @order.shipping_method.description %></strong><br>
-    <%= "Tracking : #{@order.tracking}" %><br>
+    Tracking : <em><%= "#{@order.tracking.blank? ? "Not yet shipped" : @order.tracking}" %></em><br>
   </address>
 
 </fieldset>
+</div>

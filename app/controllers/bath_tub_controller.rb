@@ -2,6 +2,7 @@ class BathTubController < ApplicationController
   before_filter :update_bathtub
 
   def index
+    @return_url = params[:r]
   end
 
   def add
@@ -18,7 +19,7 @@ class BathTubController < ApplicationController
     @bathtub.order.order_items << oi
     @bathtub.order.save
 
-    redirect_to bathtub_path
+    redirect_to bathtub_path(:r => params[:return_url])
   end
 
   def update

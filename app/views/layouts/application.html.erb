@@ -33,6 +33,7 @@
 
 <!-- content -->
 <% flash.each do |name, msg| %>
+  <div style="min-width:860px;max-width:950px;margin:0 auto">
   <% if msg.kind_of?(Array) %>
     <div id="app_alert" class="alert fade in alert-<%= "#{name}" %>">
       <a id="app_alert_close" class="close" data-dismiss="alert">×</a>
@@ -45,6 +46,7 @@
   <% else %>
     <div id="app_alert" class="alert fade in alert-<%= "#{name}" %>"><%= msg %><a class="close" data-dismiss="alert">×</a></div>
   <% end %>
+  </div>
 <% end %>
 
 <!-- logo --> 

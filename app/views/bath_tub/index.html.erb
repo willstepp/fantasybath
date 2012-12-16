@@ -1,34 +1,50 @@
 <%= content_for :bathtub, "active" %>
-
+<div class="fb-content-area">
 <h3>Tub</h3>
-<table class="table">
+<% if @bathtub.order.order_items.count > 0 %>
+<table id="tub-table" class="table table-bordered">
   <tr>
-    <th>Id</th>
+    <th>Product</th>
+    <th>Scent</th>
     <th>Quantity</th>
-    <th>Upgrades</th>
+    <th>Price</th>
     <th></th>
   </tr>
 <% @bathtub.order.order_items.each do |oi| %>
-  <tr>
-    <td><%= oi.id %></td>
+  <tr class="info">
+    <td><%= oi.product.name %></td>
+    <td><%= oi.scent.name %></td>
     <td>
-      <%= form_tag bathtub_update_path, :method => :put do %>
+      <%= form_tag bathtub_update_path, :style => "margin:0px", :method => :put do %>
         <%= hidden_field_tag :order_item_id, oi.id %>
-        <%= text_field_tag :quantity, oi.quantity, :class => "span1" %>
-        <%= submit_tag "Update", :class => "btn btn-mini" %>
+        <%= text_field_tag :quantity, oi.quantity, :style => "margin:0px", :class => "span1" %>
+        <%= submit_tag "Update", :class => "btn btn-mini btn-link" %>
       <% end %>
     </td>
+    <td><%= number_to_currency(Price.pennies_to_dollars(Order.total_order_item(oi))) %></td>
     <td>
-      <%= oi.upgrades.count %>
-    </td>
-    <td>
-      <%= form_tag bathtub_remove_path, :method => :post do %>
+      <%= form_tag bathtub_remove_path, :style => "margin:0px", :method => :post do %>
         <%= hidden_field_tag :order_item_id, oi.id %>
-        <%= submit_tag "Remove", :class => "btn btn-mini btn-danger" %>
+        <%= submit_tag "Remove", :class => "btn btn-mini btn-link", :style => "color:red" %>
       <% end %>
     </td>
   </tr>
+  <% oi.upgrades.each do |u| %>
+      <tr>
+        <td colspan="5">
+          <%= "Upgrade: #{u.description}" %>
+        </td>
+      </tr>
+      <% end %>
 <% end %>
 </table>
 <br/>
-<%= link_to "Checkout", checkout_path(:one), :class => "btn btn-success" %>
+<%= link_to "Checkout", checkout_path(:one), :class => "btn btn-success btn-red" %>
+<% if @return_url %>
+  &nbsp;or&nbsp;
+  <%= link_to "Continue shopping", @return_url %>
+<% end %>
+<% else %>
+<p>You don't have any items in your tub!</p>
+<% end %>
+</div>

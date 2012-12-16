@@ -1,5 +1,8 @@
 <%= content_for :order_status, "active" %>
+<div class="fb-content-area">
 <h3>Order Status</h3>
+<p>Please enter the following details to view your order</p>
+<br/>
 <form action="<%= view_order_status_path %>" method="post">
   <label for="id">Order Id</label>
   <input type="text" class="span4" name="id"/>
@@ -7,5 +10,6 @@
   <label for="email">Email</label>
   <input type="text" class="span4" name="email"/>
   <br/><br/>
-  <input type="submit" value="View order" class="btn btn-success"/>
+  <input type="submit" value="View order" class="btn btn-success btn-red"/>
 </form>
+</div>

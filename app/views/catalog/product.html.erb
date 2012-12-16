@@ -1,5 +1,5 @@
 <%= link_to "Products", catalog_index_path(:products), :class => "btn btn-small" %>
-<br/><br/>
+<br/>
 <ul class="product-tiles">
   <li class="product-content-area">
     <% if @product.images.count > 0 %>
@@ -20,10 +20,11 @@
 
   <%= form_tag bathtub_add_path, :method => :post do %>
     <%= hidden_field_tag :product_id, @product.id %>
+    <%= hidden_field_tag :return_url, "#{request.protocol}#{request.host_with_port}#{request.fullpath}" %>
 
     <li class="product-checkout-area">
       <div style="padding:15px">
-        <select name="filter" id="scent_id">
+        <select name="scent_id">
            <option value="-1">Choose a scent</option>
             <% @product.scents.each do |s| %>
               <option value="<%= s.id %>"><%= s.name %></option>

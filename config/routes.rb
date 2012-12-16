@@ -67,6 +67,7 @@ Fantasybath::Application.routes.draw do
     match '/scents/:id' => 'catalog#scent', :via => :get, :as => :catalog_scent
     match '/products/:id' => 'catalog#product', :via => :get, :as => :catalog_product
 
+    match '/get_price/:product_id/:scent_id' => 'catalog#get_price', :via => :get, :as => :get_price
 
     root :to =>  "catalog#index"
 end

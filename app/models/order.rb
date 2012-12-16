@@ -31,12 +31,25 @@ class Order
   belongs_to :coupon
   belongs_to :shipping_method
 
+  def self.total_order_item(order_item)
+    total = 0
+    p = Price.all_of({:product_id => order_item.product.id}, {:scent_id => order_item.scent.id}).first
+    if p
+      total += p.amount
+    end
+    #upgrades
+    order_item.upgrades.each do |u|
+      total += u.amount
+    end
+    total * order_item.quantity
+  end
+
   def total
     total = 0
 
     #order items
     self.order_items.each do |oi|
-      p = Price.any_of({:product_id => oi.product.id}, {:scent_id => oi.scent.id}).first
+      p = Price.all_of({:product_id => oi.product.id}, {:scent_id => oi.scent.id}).first
       if p
         total += p.amount
       end
