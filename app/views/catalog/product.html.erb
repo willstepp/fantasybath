@@ -1,56 +1,58 @@
 <%= link_to "Products", catalog_index_path(:products), :class => "btn btn-small" %>
 <br/><br/>
-<div class="product-content-area">
-  <% if @product.images.count > 0 %>
-    <%= image_tag @product.images.first.url %>
-  <% end %>
-  <fieldset>
-    <legend>
-      <%= @product.name %>
-      <div class="product-amount">
-        <%= "#{@product.size} #{@product.uom}" %>
-      </div>
-    </legend>
-      <p>
-      <%= @product.description %>
-      </p>
-  </fieldset>
-</div>
-
-<br/>
-<%= form_tag bathtub_add_path, :method => :post do %>
-  <%= hidden_field_tag :product_id, @product.id %>
-
-  <div class="product-content-area">
-    <div style="padding:15px">
-      <select name="filter" id="scent_id">
-         <option value="-1">Choose a scent</option>
-          <% @product.scents.each do |s| %>
-            <option value="<%= s.id %>"><%= s.name %></option>
-          <% end %>
-      </select>
-
-  <hr/>
-  
-    <% if !@product.upgrades.empty? %>
-      <% @product.upgrades.each do |u| %>
-        <label for="<%= u.id %>">
-        <%= check_box_tag "upgrades[]", u.id, false, :id => u.id %> 
-        <%= "#{u.description} : #{number_to_currency(u.amount)}" %>
-        </label>
-      <% end %>
-    <hr/>
+<ul class="product-tiles">
+  <li class="product-content-area">
+    <% if @product.images.count > 0 %>
+      <%= image_tag @product.images.first.url %>
     <% end %>
+    <fieldset>
+      <legend>
+        <%= @product.name %>
+        <div class="product-amount">
+          <%= "#{@product.size} #{@product.uom}" %>
+        </div>
+      </legend>
+        <p>
+        <%= @product.description %>
+        </p>
+    </fieldset>
+  </li>
 
-  <label for="quantity">Quantity
-    <%= text_field_tag :quantity, 1, :class => "span1" %>
-  </label>
-  <hr/>
-  <div style="padding:15px;background-color:#efefef;border-radius:0.25em;margin-bottom:5px;text-align:center">
-    <span style="color:green;font-weight:bold;font-size:1.5em">$0.00</span>
+  <%= form_tag bathtub_add_path, :method => :post do %>
+    <%= hidden_field_tag :product_id, @product.id %>
+
+    <li class="product-checkout-area">
+      <div style="padding:15px">
+        <select name="filter" id="scent_id">
+           <option value="-1">Choose a scent</option>
+            <% @product.scents.each do |s| %>
+              <option value="<%= s.id %>"><%= s.name %></option>
+            <% end %>
+        </select>
+
+    <hr/>
+    
+      <% if !@product.upgrades.empty? %>
+        <% @product.upgrades.each do |u| %>
+          <label for="<%= u.id %>">
+          <%= check_box_tag "upgrades[]", u.id, false, :id => u.id %> 
+          <%= "#{u.description} : #{number_to_currency(u.amount)}" %>
+          </label>
+        <% end %>
+      <hr/>
+      <% end %>
+
+    <label for="quantity">Quantity
+      <%= text_field_tag :quantity, 1, :class => "span1" %>
+    </label>
+    <hr/>
+    <div style="padding:15px;background-color:#efefef;border-radius:0.25em;margin-bottom:5px;text-align:center">
+      <span style="color:green;font-weight:bold;font-size:1.5em">$0.00</span>
+    </div>
+    <%= submit_tag "Add to Tub", :class => "btn btn-red btn-large btn-block", :style => "width:100%" %>
+
   </div>
-  <%= submit_tag "Add to Tub", :class => "btn btn-red btn-large btn-block", :style => "width:100%" %>
-
-</div>
-</div>
+  </li>
+</ul>
+<div class="spacer"></div>
 <% end %>
